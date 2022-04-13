@@ -1,0 +1,35 @@
+# # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
+# 
+preplace inst system.pio_0 -pg 1 -lvl 2 -y 380
+preplace inst system.nios2_gen2_0.cpu -pg 1
+preplace inst system.sdram_controller_0 -pg 1 -lvl 2 -y 680
+preplace inst system.timer_10_us -pg 1 -lvl 3 -y 180
+preplace inst system.nios2_gen2_0.clock_bridge -pg 1
+preplace inst system.jtag_uart_0 -pg 1 -lvl 2 -y 260
+preplace inst system.pll_0 -pg 1 -lvl 2 -y 980
+preplace inst system.nios2_gen2_0.reset_bridge -pg 1
+preplace inst system.Custom_PIO_0 -pg 1 -lvl 2 -y 60
+preplace inst system.nios2_gen2_0 -pg 1 -lvl 1 -y 180
+preplace inst system.Bit_Manipulate_0 -pg 1 -lvl 2 -y 200
+preplace inst system.Accelerator_0 -pg 1 -lvl 2 -y 530
+preplace inst system.performance_counter_0 -pg 1 -lvl 2 -y 880
+preplace inst system.sys_timer_1ms -pg 1 -lvl 3 -y 310
+preplace inst system.timer_100_us -pg 1 -lvl 3 -y 410
+preplace inst system.high_res_timer_1us -pg 1 -lvl 3 -y 80
+preplace inst system -pg 1 -lvl 1 -y 40 -regy -20
+preplace inst system.clk_0 -pg 1 -lvl 1 -y 520
+preplace netloc FAN_OUT<net_container>system</net_container>(SLAVE)pll_0.refclk,(SLAVE)pio_0.clk,(MASTER)clk_0.clk,(SLAVE)timer_100_us.clk,(SLAVE)high_res_timer_1us.clk,(SLAVE)sys_timer_1ms.clk,(SLAVE)performance_counter_0.clk,(SLAVE)Accelerator_0.clock,(SLAVE)timer_10_us.clk) 1 1 2 720 370 1050
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)system.reset,(SLAVE)clk_0.clk_in_reset) 1 0 1 NJ
+preplace netloc POINT_TO_POINT<net_container>system</net_container>(MASTER)nios2_gen2_0.custom_instruction_master,(SLAVE)Bit_Manipulate_0.nios_custom_instruction_slave) 1 1 1 680
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)system.custom_pio_0_conduit_end,(SLAVE)Custom_PIO_0.conduit_end) 1 0 2 NJ 100 NJ
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)system.sdram_controller_0_wire,(SLAVE)sdram_controller_0.wire) 1 0 2 NJ 750 NJ
+preplace netloc EXPORT<net_container>system</net_container>(MASTER)system.pll_0_sdram,(MASTER)pll_0.outclk0) 1 2 2 NJ 990 NJ
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)clk_0.clk_in,(SLAVE)system.clk) 1 0 1 NJ
+preplace netloc INTERCONNECT<net_container>system</net_container>(SLAVE)performance_counter_0.reset,(SLAVE)high_res_timer_1us.reset,(SLAVE)nios2_gen2_0.reset,(SLAVE)Custom_PIO_0.nReset,(SLAVE)jtag_uart_0.reset,(MASTER)clk_0.clk_reset,(SLAVE)timer_100_us.reset,(SLAVE)timer_10_us.reset,(MASTER)nios2_gen2_0.debug_reset_request,(SLAVE)sys_timer_1ms.reset,(SLAVE)pio_0.reset,(SLAVE)pll_0.reset,(SLAVE)Accelerator_0.clock_reset,(SLAVE)sdram_controller_0.reset) 1 0 3 240 360 700 190 1010
+preplace netloc FAN_OUT<net_container>system</net_container>(SLAVE)jtag_uart_0.irq,(SLAVE)sys_timer_1ms.irq,(SLAVE)high_res_timer_1us.irq,(SLAVE)Custom_PIO_0.irq,(SLAVE)timer_10_us.irq,(MASTER)nios2_gen2_0.irq,(SLAVE)pio_0.irq,(SLAVE)timer_100_us.irq) 1 1 2 600 30 1090
+preplace netloc INTERCONNECT<net_container>system</net_container>(SLAVE)Accelerator_0.slave,(MASTER)Accelerator_0.master,(SLAVE)sdram_controller_0.s1,(SLAVE)nios2_gen2_0.debug_mem_slave,(SLAVE)high_res_timer_1us.s1,(SLAVE)jtag_uart_0.avalon_jtag_slave,(SLAVE)sys_timer_1ms.s1,(MASTER)nios2_gen2_0.data_master,(MASTER)nios2_gen2_0.instruction_master,(SLAVE)Custom_PIO_0.avalon_slave_0,(SLAVE)pio_0.s1,(SLAVE)timer_10_us.s1,(SLAVE)timer_100_us.s1,(SLAVE)performance_counter_0.control_slave) 1 0 3 220 340 620 50 1070
+preplace netloc EXPORT<net_container>system</net_container>(SLAVE)pio_0.external_connection,(SLAVE)system.pio_0_external_connection) 1 0 2 NJ 410 NJ
+preplace netloc FAN_OUT<net_container>system</net_container>(SLAVE)nios2_gen2_0.clk,(MASTER)pll_0.outclk2,(SLAVE)jtag_uart_0.clk,(SLAVE)Custom_PIO_0.clock) 1 0 3 200 320 660 250 1030
+preplace netloc POINT_TO_POINT<net_container>system</net_container>(SLAVE)sdram_controller_0.clk,(MASTER)pll_0.outclk1) 1 1 2 740 790 1010
+levelinfo -pg 1 0 170 1370
+levelinfo -hier system 180 360 800 1150 1270
