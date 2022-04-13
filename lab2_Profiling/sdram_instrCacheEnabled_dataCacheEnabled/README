@@ -16,20 +16,21 @@ Folder structure
 <project_name>
 ├── hw
 │   ├── hdl
-│   │   ├── DE0_Nano_SoC_top_level.vhd
-│   │   ├── DE0_Nano_top_level.vhd
+|   |   ├── IP (custom IPs)
+|   │   │   ├── custom_function.vhd
+|   │   │   ├── hardware_accelerator.vhd
+|   │   │   ├── ParallelPort.vhd
+|   │   │   ├── tb_ParallelPort.vhd
 │   │   └── DE1_SoC_top_level.vhd
 │   ├── modelsim
 │   └── quartus
-│       ├── pin_assignment_DE0_Nano_SoC.tcl
-│       ├── pin_assignment_DE0_Nano.tcl
+│       ├── pin_assignment_DE1_Nano_SoC.tcl
+│       ├── pin_assignment_DE1_Nano.tcl
 │       └── pin_assignment_DE1_SoC.tcl
 ├── README
 └── sw
-    ├── hps
-    │   ├── application
-    │   ├── linux
-    │   │   └── driver
-    │   └── preloader
-    └── nios
-        └── application
+    ├── Profile
+    │   ├── hello_world.c (Check this if you want to know how the program works)
+    │   ├── Makefile, etc.
+    └── Profile.bsp
+        └── some bsp files
