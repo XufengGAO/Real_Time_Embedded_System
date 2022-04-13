@@ -6,6 +6,7 @@ In this repo, the measures of response time to interruptions are studied and tes
 - Measurements of response time to the interruptions, tasks commutations, primitives of synchronizations are carried out on an embedded system based on a Altera System-on-Chip (SoC) FPGA, the [DE1-SoC board](https://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&No=836).
 - Multiprocessors, accelerators, custom instructions, specialized hardware are designed to improve the performance of a specific application. 
 - Specialized programmable interfaces are implemented in VHDL and C.
+- Reports are written to illustrate our results.
 
 ### Memberss
 - [Haoxin SUN](https://github.com/HaoxinSEU)
