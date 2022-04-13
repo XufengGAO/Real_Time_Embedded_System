@@ -12,6 +12,7 @@ About
 This README describes the standard project structure
 
 Folder structure
+'''
 ================
 <project_name>
 ├── hw
@@ -34,3 +35,4 @@ Folder structure
     │   ├── Makefile, etc.
     └── Profile.bsp
         └── some bsp files
+'''
