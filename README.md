@@ -7,5 +7,5 @@ Measurements of response time to the interruptions, tasks commutations, primitiv
 Multiprocessors, accelerators, custom instructions, specialized hardware are some ways to improve the performance of a specific application. Those concepts are developed through laboratories and a mini-project.
 
 ### Memberss
--[Haoxin SUN](https://github.com/HaoxinSEU)
--[Xufeng GAO](https://github.com/XufengGAO)
+- [Haoxin SUN](https://github.com/HaoxinSEU)
+- [Xufeng GAO](https://github.com/XufengGAO)
