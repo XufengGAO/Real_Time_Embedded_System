@@ -8,6 +8,6 @@ In this repo, the measures of response time to interruptions are studied and tes
 - Specialized programmable interfaces are implemented in VHDL and C.
 - Reports are written to illustrate our results.
 
-### Memberss
+### Members
 - [Haoxin SUN](https://github.com/HaoxinSEU)
 - [Xufeng GAO](https://github.com/XufengGAO)
