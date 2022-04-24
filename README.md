@@ -1,4 +1,4 @@
-# Real_Time_Embedded_System
+# Real Time Embedded System
 
 ### Main objective
 A real time system has to accept important temporal constraints. A real time embedded system must be able to react to events with a limited time.
