@@ -14,4 +14,4 @@ In this repo, the measures of response time to interruptions are studied and tes
 
 ### Main works in this repo
 - Lab 2: Specific operations by pure C program, custom instructions, and a hardware DMA accelerator; Profiling by software and hardware tools.
-- Lab 3: Multiprocessor system design.
+- Lab 3: Multiprocessor system design; usage of hardware Mailbox and Mutex IP cores.
