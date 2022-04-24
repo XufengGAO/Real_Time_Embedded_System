@@ -17,11 +17,11 @@ Project structure
 ├── hw
 │   ├── hdl
 |   |   ├── IP (custom IPs)
-|   │   │   ├── custom_function.vhd
-|   │   │   ├── hardware_accelerator.vhd
-|   │   │   ├── ParallelPort.vhd
-|   │   │   ├── tb_ParallelPort.vhd
-│   │   └── DE1_SoC_top_level.vhd
+|   │   │   ├── custom_function.vhd     % custom instruction
+|   │   │   ├── hardware_accelerator.vhd    % hardware DMA accelerator
+|   │   │   ├── ParallelPort.vhd        % custom PIO
+|   │   │   ├── tb_ParallelPort.vhd     % testbench file
+│   │   └── DE1_SoC_top_level.vhd       % top level VHDL file
 │   ├── modelsim
 │   └── quartus
 │       ├── pin_assignment_DE1_Nano_SoC.tcl
@@ -30,7 +30,7 @@ Project structure
 ├── README
 └── sw
     ├── Profile
-    │   ├── hello_world.c (Check this if you want to know how the program works)
+    │   ├── hello_world.c (Check this if you want to know how the program works)    % software C program
     │   ├── Makefile, etc.
     └── Profile.bsp
         └── some bsp files
