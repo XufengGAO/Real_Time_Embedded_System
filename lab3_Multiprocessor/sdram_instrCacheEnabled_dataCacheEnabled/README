@@ -3,7 +3,7 @@
 #
 # Author        : Xufeng GAO & Haoxin SUN
 # Revision      : 1.0
-# Creation date : 2022/04/13
+# Creation date : 2022/04/28
 #
 # ##############################################################################
 
@@ -21,6 +21,7 @@ Project structure
 |   │   │   ├── hardware_accelerator.vhd    % hardware DMA accelerator
 |   │   │   ├── ParallelPort.vhd        % custom PIO
 |   │   │   ├── tb_ParallelPort.vhd     % testbench file
+|   │   │   ├── Counter.vhd     % custom Counter
 │   │   └── DE1_SoC_top_level.vhd       % top level VHDL file
 │   ├── modelsim
 │   └── quartus
@@ -29,8 +30,13 @@ Project structure
 │       └── pin_assignment_DE1_SoC.tcl
 ├── README
 └── sw
-    ├── Profile
+    ├── CPU_0
     │   ├── hello_world.c (Check this if you want to know how the program works)    % software C program
     │   ├── Makefile, etc.
-    └── Profile.bsp
+    └── CPU_0.bsp
+    |   └── some bsp files
+    ├── CPU_1
+    │   ├── hello_world.c (Check this if you want to know how the program works)    % software C program
+    │   ├── Makefile, etc.
+    └── CPU_0.bsp
         └── some bsp files
