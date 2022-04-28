@@ -1,0 +1,153 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+*/
+(header "symbol" (version "1.1"))
+(symbol
+	(rect 0 0 416 248)
+	(text "cpu_0" (rect 191 -1 215 11)(font "Arial" (font_size 10)))
+	(text "inst" (rect 8 232 20 244)(font "Arial" ))
+	(port
+		(pt 0 72)
+		(input)
+		(text "clk_clk" (rect 0 0 27 12)(font "Arial" (font_size 8)))
+		(text "clk_clk" (rect 4 61 46 72)(font "Arial" (font_size 8)))
+		(line (pt 0 72)(pt 128 72)(line_width 1))
+	)
+	(port
+		(pt 0 112)
+		(input)
+		(text "reset_reset_n" (rect 0 0 56 12)(font "Arial" (font_size 8)))
+		(text "reset_reset_n" (rect 4 101 82 112)(font "Arial" (font_size 8)))
+		(line (pt 0 112)(pt 128 112)(line_width 1))
+	)
+	(port
+		(pt 416 72)
+		(input)
+		(text "outgoing_master_waitrequest" (rect 0 0 115 12)(font "Arial" (font_size 8)))
+		(text "outgoing_master_waitrequest" (rect 268 61 430 72)(font "Arial" (font_size 8)))
+		(line (pt 416 72)(pt 240 72)(line_width 1))
+	)
+	(port
+		(pt 416 88)
+		(input)
+		(text "outgoing_master_readdata[31..0]" (rect 0 0 129 12)(font "Arial" (font_size 8)))
+		(text "outgoing_master_readdata[31..0]" (rect 255 77 441 88)(font "Arial" (font_size 8)))
+		(line (pt 416 88)(pt 240 88)(line_width 3))
+	)
+	(port
+		(pt 416 104)
+		(input)
+		(text "outgoing_master_readdatavalid" (rect 0 0 123 12)(font "Arial" (font_size 8)))
+		(text "outgoing_master_readdatavalid" (rect 261 93 435 104)(font "Arial" (font_size 8)))
+		(line (pt 416 104)(pt 240 104)(line_width 1))
+	)
+	(port
+		(pt 416 120)
+		(output)
+		(text "outgoing_master_burstcount" (rect 0 0 113 12)(font "Arial" (font_size 8)))
+		(text "outgoing_master_burstcount" (rect 274 109 430 120)(font "Arial" (font_size 8)))
+		(line (pt 416 120)(pt 240 120)(line_width 1))
+	)
+	(port
+		(pt 416 136)
+		(output)
+		(text "outgoing_master_writedata[31..0]" (rect 0 0 129 12)(font "Arial" (font_size 8)))
+		(text "outgoing_master_writedata[31..0]" (rect 252 125 444 136)(font "Arial" (font_size 8)))
+		(line (pt 416 136)(pt 240 136)(line_width 3))
+	)
+	(port
+		(pt 416 152)
+		(output)
+		(text "outgoing_master_address[9..0]" (rect 0 0 123 12)(font "Arial" (font_size 8)))
+		(text "outgoing_master_address[9..0]" (rect 262 141 436 152)(font "Arial" (font_size 8)))
+		(line (pt 416 152)(pt 240 152)(line_width 3))
+	)
+	(port
+		(pt 416 168)
+		(output)
+		(text "outgoing_master_write" (rect 0 0 89 12)(font "Arial" (font_size 8)))
+		(text "outgoing_master_write" (rect 301 157 427 168)(font "Arial" (font_size 8)))
+		(line (pt 416 168)(pt 240 168)(line_width 1))
+	)
+	(port
+		(pt 416 184)
+		(output)
+		(text "outgoing_master_read" (rect 0 0 89 12)(font "Arial" (font_size 8)))
+		(text "outgoing_master_read" (rect 304 173 424 184)(font "Arial" (font_size 8)))
+		(line (pt 416 184)(pt 240 184)(line_width 1))
+	)
+	(port
+		(pt 416 200)
+		(output)
+		(text "outgoing_master_byteenable[3..0]" (rect 0 0 134 12)(font "Arial" (font_size 8)))
+		(text "outgoing_master_byteenable[3..0]" (rect 249 189 441 200)(font "Arial" (font_size 8)))
+		(line (pt 416 200)(pt 240 200)(line_width 3))
+	)
+	(port
+		(pt 416 216)
+		(output)
+		(text "outgoing_master_debugaccess" (rect 0 0 123 12)(font "Arial" (font_size 8)))
+		(text "outgoing_master_debugaccess" (rect 260 205 422 216)(font "Arial" (font_size 8)))
+		(line (pt 416 216)(pt 240 216)(line_width 1))
+	)
+	(port
+		(pt 0 152)
+		(output)
+		(text "cpu_0_pio_export[7..0]" (rect 0 0 92 12)(font "Arial" (font_size 8)))
+		(text "cpu_0_pio_export[7..0]" (rect 4 141 136 152)(font "Arial" (font_size 8)))
+		(line (pt 0 152)(pt 128 152)(line_width 3))
+	)
+	(drawing
+		(text "clk" (rect 113 43 244 99)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "clk" (rect 133 67 284 144)(font "Arial" (color 0 0 0)))
+		(text "reset" (rect 99 83 228 179)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "reset_n" (rect 133 107 308 224)(font "Arial" (color 0 0 0)))
+		(text "outgoing_master" (rect 241 43 572 99)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "waitrequest" (rect 189 67 444 144)(font "Arial" (color 0 0 0)))
+		(text "readdata" (rect 200 83 448 176)(font "Arial" (color 0 0 0)))
+		(text "readdatavalid" (rect 180 99 438 208)(font "Arial" (color 0 0 0)))
+		(text "burstcount" (rect 192 115 444 240)(font "Arial" (color 0 0 0)))
+		(text "writedata" (rect 199 131 452 272)(font "Arial" (color 0 0 0)))
+		(text "address" (rect 203 147 448 304)(font "Arial" (color 0 0 0)))
+		(text "write" (rect 217 163 464 336)(font "Arial" (color 0 0 0)))
+		(text "read" (rect 218 179 460 368)(font "Arial" (color 0 0 0)))
+		(text "byteenable" (rect 191 195 442 400)(font "Arial" (color 0 0 0)))
+		(text "debugaccess" (rect 182 211 430 432)(font "Arial" (color 0 0 0)))
+		(text "cpu_0_pio" (rect 69 123 192 259)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "export" (rect 133 147 302 304)(font "Arial" (color 0 0 0)))
+		(text " system " (rect 381 232 810 474)(font "Arial" ))
+		(line (pt 128 32)(pt 240 32)(line_width 1))
+		(line (pt 240 32)(pt 240 232)(line_width 1))
+		(line (pt 128 232)(pt 240 232)(line_width 1))
+		(line (pt 128 32)(pt 128 232)(line_width 1))
+		(line (pt 129 52)(pt 129 76)(line_width 1))
+		(line (pt 130 52)(pt 130 76)(line_width 1))
+		(line (pt 129 92)(pt 129 116)(line_width 1))
+		(line (pt 130 92)(pt 130 116)(line_width 1))
+		(line (pt 239 52)(pt 239 220)(line_width 1))
+		(line (pt 238 52)(pt 238 220)(line_width 1))
+		(line (pt 129 132)(pt 129 156)(line_width 1))
+		(line (pt 130 132)(pt 130 156)(line_width 1))
+		(line (pt 0 0)(pt 416 0)(line_width 1))
+		(line (pt 416 0)(pt 416 248)(line_width 1))
+		(line (pt 0 248)(pt 416 248)(line_width 1))
+		(line (pt 0 0)(pt 0 248)(line_width 1))
+	)
+)
