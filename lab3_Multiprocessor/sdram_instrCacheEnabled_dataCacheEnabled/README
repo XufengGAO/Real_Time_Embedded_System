@@ -31,12 +31,12 @@ Project structure
 ├── README
 └── sw
     ├── CPU_0
-    │   ├── hello_world.c (Check this if you want to know how the program works)    % software C program
+    │   ├── hello_world.c (Check this if you want to know how the program works)    % software C program for one of the cores: CPU0 
     │   ├── Makefile, etc.
     └── CPU_0.bsp
     |   └── some bsp files
     ├── CPU_1
-    │   ├── hello_world.c (Check this if you want to know how the program works)    % software C program
+    │   ├── hello_world.c (Check this if you want to know how the program works)    % software C program for one of the cores: CPU1 
     │   ├── Makefile, etc.
     └── CPU_0.bsp
         └── some bsp files
