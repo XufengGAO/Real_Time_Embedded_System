@@ -1,0 +1,19 @@
+	component cpu_1 is
+		port (
+			clk_clk                      : in    std_logic                     := 'X';             -- clk
+			reset_reset_n                : in    std_logic                     := 'X';             -- reset_n
+			mm_bridge_1_m0_waitrequest   : in    std_logic                     := 'X';             -- waitrequest
+			mm_bridge_1_m0_readdata      : in    std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			mm_bridge_1_m0_readdatavalid : in    std_logic                     := 'X';             -- readdatavalid
+			mm_bridge_1_m0_burstcount    : out   std_logic_vector(0 downto 0);                     -- burstcount
+			mm_bridge_1_m0_writedata     : out   std_logic_vector(31 downto 0);                    -- writedata
+			mm_bridge_1_m0_address       : out   std_logic_vector(27 downto 0);                    -- address
+			mm_bridge_1_m0_write         : out   std_logic;                                        -- write
+			mm_bridge_1_m0_read          : out   std_logic;                                        -- read
+			mm_bridge_1_m0_byteenable    : out   std_logic_vector(3 downto 0);                     -- byteenable
+			mm_bridge_1_m0_debugaccess   : out   std_logic;                                        -- debugaccess
+			cpu_1_custompio_0_parport    : inout std_logic_vector(7 downto 0)  := (others => 'X'); -- parport
+			cpu_1_led_export             : out   std_logic_vector(7 downto 0)                      -- export
+		);
+	end component cpu_1;
+

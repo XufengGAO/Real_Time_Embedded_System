@@ -190,6 +190,22 @@
          type = "int";
       }
    }
+   element cpu_0_0
+   {
+      datum _sortIndex
+      {
+         value = "23";
+         type = "int";
+      }
+   }
+   element cpu_1_0
+   {
+      datum _sortIndex
+      {
+         value = "24";
+         type = "int";
+      }
+   }
    element jtag_uart_0
    {
       datum _sortIndex
@@ -250,7 +266,7 @@
    {
       datum baseAddress
       {
-         value = "67375216";
+         value = "67375200";
          type = "String";
       }
    }
@@ -290,7 +306,7 @@
    {
       datum baseAddress
       {
-         value = "67375264";
+         value = "67108896";
          type = "String";
       }
    }
@@ -306,7 +322,7 @@
    {
       datum baseAddress
       {
-         value = "67375200";
+         value = "67108864";
          type = "String";
       }
    }
@@ -314,7 +330,7 @@
    {
       datum baseAddress
       {
-         value = "67375216";
+         value = "67108864";
          type = "String";
       }
    }
@@ -330,7 +346,7 @@
    {
       datum baseAddress
       {
-         value = "67375248";
+         value = "67108880";
          type = "String";
       }
    }
@@ -346,7 +362,7 @@
    {
       datum baseAddress
       {
-         value = "67375256";
+         value = "67108888";
          type = "String";
       }
    }
@@ -403,7 +419,7 @@
  <parameter name="hdlLanguage" value="VERILOG" />
  <parameter name="hideFromIPCatalog" value="false" />
  <parameter name="lockedInterfaceDefinition" value="" />
- <parameter name="maxAdditionalLatency" value="1" />
+ <parameter name="maxAdditionalLatency" value="4" />
  <parameter name="projectName">sdram_instrCacheEnabled_dataCacheEnabled.qpf</parameter>
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="0" />
@@ -413,25 +429,29 @@
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
  <interface
-   name="led_0_output"
-   internal="LED_0.conduit_end"
+   name="cpu_0_custompio_0"
+   internal="cpu_0_0.cpu_0_custompio_0"
    type="conduit"
    dir="end" />
  <interface
-   name="led_1_output"
-   internal="LED_1.conduit_end"
+   name="cpu_0_led"
+   internal="cpu_0_0.cpu_0_led"
    type="conduit"
    dir="end" />
  <interface
-   name="pio_0_external_connection"
-   internal="pio_0.external_connection"
+   name="cpu_1_custompio_0"
+   internal="cpu_1_0.cpu_1_custompio_0"
    type="conduit"
    dir="end" />
  <interface
-   name="pio_1_external_connection"
-   internal="pio_1.external_connection"
+   name="cpu_1_led"
+   internal="cpu_1_0.cpu_1_led"
    type="conduit"
    dir="end" />
+ <interface name="led_0_output" internal="LED_0.conduit_end" />
+ <interface name="led_1_output" internal="LED_1.conduit_end" />
+ <interface name="pio_0_external_connection" internal="pio_0.external_connection" />
+ <interface name="pio_1_external_connection" internal="pio_1.external_connection" />
  <interface
    name="pll_0_outclk2"
    internal="pll_0.outclk2"
@@ -448,9 +468,9 @@
    internal="shared_PIO.conduit_end"
    type="conduit"
    dir="end" />
- <module name="CPU_0" kind="altera_nios2_gen2" version="18.1" enabled="1">
-  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="6" />
-  <parameter name="AUTO_CLK_RESET_DOMAIN" value="6" />
+ <module name="CPU_0" kind="altera_nios2_gen2" version="18.1" enabled="0">
+  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="4" />
+  <parameter name="AUTO_CLK_RESET_DOMAIN" value="4" />
   <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
   <parameter name="bht_ramBlockType" value="Automatic" />
@@ -468,7 +488,7 @@
   <parameter name="dataAddrWidth" value="27" />
   <parameter name="dataMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="dataMasterHighPerformanceMapParam" value="" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram_controller.s1' start='0x0' end='0x4000000' type='altera_avalon_new_sdram_controller.s1' /><slave name='SRAM_0.s1' start='0x4020000' end='0x403F400' type='altera_avalon_onchip_memory2.s1' /><slave name='CPU_0.debug_mem_slave' start='0x4040800' end='0x4041000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='PERC_0.control_slave' start='0x4041000' end='0x4041040' type='altera_avalon_performance_counter.control_slave' /><slave name='timer_0.s1' start='0x4041040' end='0x4041060' type='altera_avalon_timer.s1' /><slave name='pio_0.s1' start='0x4041060' end='0x4041070' type='altera_avalon_pio.s1' /><slave name='shared_mailbox.avmm_msg_sender' start='0x4041070' end='0x4041080' type='altera_avalon_mailbox_simple.avmm_msg_sender' /><slave name='Custom_counter_0.avalon_slave_0' start='0x4041080' end='0x4041090' type='Custom_counter.avalon_slave_0' /><slave name='shared_mutex_PIO.s1' start='0x4041090' end='0x4041098' type='altera_avalon_mutex.s1' /><slave name='sysid.control_slave' start='0x4041098' end='0x40410A0' type='altera_avalon_sysid_qsys.control_slave' /><slave name='shared_PIO.avalon_slave_0' start='0x40410A0' end='0x40410A8' type='CustomPIO.avalon_slave_0' /><slave name='LED_0.avalon_slave_0' start='0x40410A8' end='0x40410B0' type='CustomPIO.avalon_slave_0' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x40410B0' end='0x40410B8' type='altera_avalon_jtag_uart.avalon_jtag_slave' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram_controller.s1' start='0x0' end='0x4000000' type='altera_avalon_new_sdram_controller.s1' /><slave name='CPU_0.debug_mem_slave' start='0x4040800' end='0x4041000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='shared_mailbox.avmm_msg_sender' start='0x4041070' end='0x4041080' type='altera_avalon_mailbox_simple.avmm_msg_sender' /><slave name='shared_mutex_PIO.s1' start='0x4041090' end='0x4041098' type='altera_avalon_mutex.s1' /><slave name='sysid.control_slave' start='0x4041098' end='0x40410A0' type='altera_avalon_sysid_qsys.control_slave' /><slave name='shared_PIO.avalon_slave_0' start='0x40410A0' end='0x40410A8' type='CustomPIO.avalon_slave_0' /></address-map>]]></parameter>
   <parameter name="data_master_high_performance_paddr_base" value="0" />
   <parameter name="data_master_high_performance_paddr_size" value="0" />
   <parameter name="data_master_paddr_base" value="0" />
@@ -507,14 +527,14 @@
   <parameter name="icache_tagramBlockType" value="Automatic" />
   <parameter name="impl" value="Fast" />
   <parameter name="instAddrWidth" value="27" />
-  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='SRAM_0.s1' start='0x4020000' end='0x403F400' type='altera_avalon_onchip_memory2.s1' /><slave name='CPU_0.debug_mem_slave' start='0x4040800' end='0x4041000' type='altera_nios2_gen2.debug_mem_slave' /></address-map>]]></parameter>
+  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='CPU_0.debug_mem_slave' start='0x4040800' end='0x4041000' type='altera_nios2_gen2.debug_mem_slave' /></address-map>]]></parameter>
   <parameter name="instructionMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="instructionMasterHighPerformanceMapParam" value="" />
   <parameter name="instruction_master_high_performance_paddr_base" value="0" />
   <parameter name="instruction_master_high_performance_paddr_size" value="0" />
   <parameter name="instruction_master_paddr_base" value="0" />
   <parameter name="instruction_master_paddr_size" value="0" />
-  <parameter name="internalIrqMaskSystemInfo" value="7" />
+  <parameter name="internalIrqMaskSystemInfo" value="0" />
   <parameter name="io_regionbase" value="0" />
   <parameter name="io_regionsize" value="0" />
   <parameter name="master_addr_map" value="false" />
@@ -626,9 +646,9 @@
   <parameter name="tracefilename" value="" />
   <parameter name="userDefinedSettings" value="" />
  </module>
- <module name="CPU_1" kind="altera_nios2_gen2" version="18.1" enabled="1">
-  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="1" />
-  <parameter name="AUTO_CLK_RESET_DOMAIN" value="1" />
+ <module name="CPU_1" kind="altera_nios2_gen2" version="18.1" enabled="0">
+  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="3" />
+  <parameter name="AUTO_CLK_RESET_DOMAIN" value="3" />
   <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
   <parameter name="bht_ramBlockType" value="Automatic" />
@@ -646,7 +666,7 @@
   <parameter name="dataAddrWidth" value="27" />
   <parameter name="dataMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="dataMasterHighPerformanceMapParam" value="" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram_controller.s1' start='0x0' end='0x4000000' type='altera_avalon_new_sdram_controller.s1' /><slave name='SRAM_1.s1' start='0x4020000' end='0x403F400' type='altera_avalon_onchip_memory2.s1' /><slave name='CPU_1.debug_mem_slave' start='0x4040800' end='0x4041000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='PERC_1.control_slave' start='0x4041000' end='0x4041040' type='altera_avalon_performance_counter.control_slave' /><slave name='timer_1.s1' start='0x4041040' end='0x4041060' type='altera_avalon_timer.s1' /><slave name='shared_mailbox.avmm_msg_receiver' start='0x4041060' end='0x4041070' type='altera_avalon_mailbox_simple.avmm_msg_receiver' /><slave name='pio_1.s1' start='0x4041070' end='0x4041080' type='altera_avalon_pio.s1' /><slave name='Custom_counter_1.avalon_slave_0' start='0x4041080' end='0x4041090' type='Custom_counter.avalon_slave_0' /><slave name='shared_mutex_PIO.s1' start='0x4041090' end='0x4041098' type='altera_avalon_mutex.s1' /><slave name='sysid.control_slave' start='0x4041098' end='0x40410A0' type='altera_avalon_sysid_qsys.control_slave' /><slave name='shared_PIO.avalon_slave_0' start='0x40410A0' end='0x40410A8' type='CustomPIO.avalon_slave_0' /><slave name='LED_1.avalon_slave_0' start='0x40410A8' end='0x40410B0' type='CustomPIO.avalon_slave_0' /><slave name='jtag_uart_1.avalon_jtag_slave' start='0x40410B0' end='0x40410B8' type='altera_avalon_jtag_uart.avalon_jtag_slave' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='sdram_controller.s1' start='0x0' end='0x4000000' type='altera_avalon_new_sdram_controller.s1' /><slave name='CPU_1.debug_mem_slave' start='0x4040800' end='0x4041000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='pio_1.s1' start='0x4041060' end='0x4041070' type='altera_avalon_pio.s1' /><slave name='shared_mailbox.avmm_msg_receiver' start='0x4041070' end='0x4041080' type='altera_avalon_mailbox_simple.avmm_msg_receiver' /><slave name='shared_mutex_PIO.s1' start='0x4041090' end='0x4041098' type='altera_avalon_mutex.s1' /><slave name='sysid.control_slave' start='0x4041098' end='0x40410A0' type='altera_avalon_sysid_qsys.control_slave' /><slave name='shared_PIO.avalon_slave_0' start='0x40410A0' end='0x40410A8' type='CustomPIO.avalon_slave_0' /></address-map>]]></parameter>
   <parameter name="data_master_high_performance_paddr_base" value="0" />
   <parameter name="data_master_high_performance_paddr_size" value="0" />
   <parameter name="data_master_paddr_base" value="0" />
@@ -685,14 +705,14 @@
   <parameter name="icache_tagramBlockType" value="Automatic" />
   <parameter name="impl" value="Fast" />
   <parameter name="instAddrWidth" value="27" />
-  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='SRAM_1.s1' start='0x4020000' end='0x403F400' type='altera_avalon_onchip_memory2.s1' /><slave name='CPU_1.debug_mem_slave' start='0x4040800' end='0x4041000' type='altera_nios2_gen2.debug_mem_slave' /></address-map>]]></parameter>
+  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='CPU_1.debug_mem_slave' start='0x4040800' end='0x4041000' type='altera_nios2_gen2.debug_mem_slave' /></address-map>]]></parameter>
   <parameter name="instructionMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="instructionMasterHighPerformanceMapParam" value="" />
   <parameter name="instruction_master_high_performance_paddr_base" value="0" />
   <parameter name="instruction_master_high_performance_paddr_size" value="0" />
   <parameter name="instruction_master_paddr_base" value="0" />
   <parameter name="instruction_master_paddr_size" value="0" />
-  <parameter name="internalIrqMaskSystemInfo" value="14" />
+  <parameter name="internalIrqMaskSystemInfo" value="0" />
   <parameter name="io_regionbase" value="0" />
   <parameter name="io_regionsize" value="0" />
   <parameter name="master_addr_map" value="false" />
@@ -808,39 +828,39 @@
    name="Custom_counter_0"
    kind="Custom_counter"
    version="1.0"
-   enabled="1">
+   enabled="0">
   <parameter name="countWidth" value="32" />
  </module>
  <module
    name="Custom_counter_1"
    kind="Custom_counter"
    version="1.0"
-   enabled="1">
+   enabled="0">
   <parameter name="countWidth" value="32" />
  </module>
- <module name="LED_0" kind="CustomPIO" version="1.0" enabled="1" />
- <module name="LED_1" kind="CustomPIO" version="1.0" enabled="1" />
+ <module name="LED_0" kind="CustomPIO" version="1.0" enabled="0" />
+ <module name="LED_1" kind="CustomPIO" version="1.0" enabled="0" />
  <module
    name="PERC_0"
    kind="altera_avalon_performance_counter"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="numberOfSections" value="3" />
  </module>
  <module
    name="PERC_1"
    kind="altera_avalon_performance_counter"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="numberOfSections" value="3" />
  </module>
  <module
    name="SRAM_0"
    kind="altera_avalon_onchip_memory2"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="allowInSystemMemoryContentEditor" value="false" />
-  <parameter name="autoInitializationFileName" value="$${FILENAME}_SRAM_0" />
+  <parameter name="autoInitializationFileName" value="system_SRAM_0" />
   <parameter name="blockType" value="AUTO" />
   <parameter name="copyInitFile" value="false" />
   <parameter name="dataWidth" value="32" />
@@ -854,7 +874,7 @@
   <parameter name="initMemContent" value="true" />
   <parameter name="initializationFileName" value="onchip_mem.hex" />
   <parameter name="instanceID" value="NONE" />
-  <parameter name="memorySize" value="128000" />
+  <parameter name="memorySize" value="122880" />
   <parameter name="readDuringWriteMode" value="DONT_CARE" />
   <parameter name="resetrequest_enabled" value="true" />
   <parameter name="simAllowMRAMContentsFile" value="false" />
@@ -870,9 +890,9 @@
    name="SRAM_1"
    kind="altera_avalon_onchip_memory2"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="allowInSystemMemoryContentEditor" value="false" />
-  <parameter name="autoInitializationFileName" value="$${FILENAME}_SRAM_1" />
+  <parameter name="autoInitializationFileName" value="system_SRAM_1" />
   <parameter name="blockType" value="AUTO" />
   <parameter name="copyInitFile" value="false" />
   <parameter name="dataWidth" value="32" />
@@ -886,7 +906,7 @@
   <parameter name="initMemContent" value="true" />
   <parameter name="initializationFileName" value="onchip_mem.hex" />
   <parameter name="instanceID" value="NONE" />
-  <parameter name="memorySize" value="128000" />
+  <parameter name="memorySize" value="122880" />
   <parameter name="readDuringWriteMode" value="DONT_CARE" />
   <parameter name="resetrequest_enabled" value="true" />
   <parameter name="simAllowMRAMContentsFile" value="false" />
@@ -904,11 +924,35 @@
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
+ <module name="cpu_0_0" kind="cpu_0" version="1.0" enabled="1">
+  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="1" />
+  <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
+  <parameter name="AUTO_CLK_RESET_DOMAIN" value="1" />
+  <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
+  <parameter name="AUTO_GENERATION_ID" value="0" />
+  <parameter name="AUTO_OUTGOING_MASTER_ADDRESS_MAP"><![CDATA[<address-map><slave name='sdram_controller.s1' start='0x0' end='0x4000000' /><slave name='shared_mailbox.avmm_msg_sender' start='0x4000000' end='0x4000010' /><slave name='shared_mutex_PIO.s1' start='0x4000010' end='0x4000018' /><slave name='sysid.control_slave' start='0x4000018' end='0x4000020' /><slave name='shared_PIO.avalon_slave_0' start='0x4000020' end='0x4000028' /></address-map>]]></parameter>
+  <parameter name="AUTO_OUTGOING_MASTER_ADDRESS_WIDTH" value="AddressWidth = 27" />
+  <parameter name="AUTO_UNIQUE_ID">$${FILENAME}_cpu_0_0</parameter>
+ </module>
+ <module name="cpu_1_0" kind="cpu_1" version="1.0" enabled="1">
+  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="1" />
+  <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
+  <parameter name="AUTO_CLK_RESET_DOMAIN" value="1" />
+  <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
+  <parameter name="AUTO_GENERATION_ID" value="0" />
+  <parameter name="AUTO_MM_BRIDGE_1_M0_ADDRESS_MAP"><![CDATA[<address-map><slave name='sdram_controller.s1' start='0x0' end='0x4000000' /><slave name='shared_mailbox.avmm_msg_receiver' start='0x4000000' end='0x4000010' /><slave name='shared_mutex_PIO.s1' start='0x4000010' end='0x4000018' /><slave name='sysid.control_slave' start='0x4000018' end='0x4000020' /><slave name='shared_PIO.avalon_slave_0' start='0x4000020' end='0x4000028' /></address-map>]]></parameter>
+  <parameter name="AUTO_MM_BRIDGE_1_M0_ADDRESS_WIDTH" value="AddressWidth = 27" />
+  <parameter name="AUTO_UNIQUE_ID">$${FILENAME}_cpu_1_0</parameter>
+ </module>
  <module
    name="jtag_uart_0"
    kind="altera_avalon_jtag_uart"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="allowMultipleConnections" value="false" />
   <parameter name="avalonSpec" value="2.0" />
   <parameter name="clkFreq" value="50000000" />
@@ -927,7 +971,7 @@
    name="jtag_uart_1"
    kind="altera_avalon_jtag_uart"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="allowMultipleConnections" value="false" />
   <parameter name="avalonSpec" value="2.0" />
   <parameter name="clkFreq" value="50000000" />
@@ -942,7 +986,7 @@
   <parameter name="writeBufferDepth" value="64" />
   <parameter name="writeIRQThreshold" value="8" />
  </module>
- <module name="pio_0" kind="altera_avalon_pio" version="18.1" enabled="1">
+ <module name="pio_0" kind="altera_avalon_pio" version="18.1" enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -956,7 +1000,7 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="8" />
  </module>
- <module name="pio_1" kind="altera_avalon_pio" version="18.1" enabled="1">
+ <module name="pio_1" kind="altera_avalon_pio" version="18.1" enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -1228,24 +1272,24 @@
    enabled="1">
   <parameter name="id" value="0" />
  </module>
- <module name="timer_0" kind="altera_avalon_timer" version="18.1" enabled="1">
+ <module name="timer_0" kind="altera_avalon_timer" version="18.1" enabled="0">
   <parameter name="alwaysRun" value="false" />
   <parameter name="counterSize" value="32" />
   <parameter name="fixedPeriod" value="false" />
-  <parameter name="period" value="10" />
-  <parameter name="periodUnits" value="MSEC" />
+  <parameter name="period" value="100" />
+  <parameter name="periodUnits" value="USEC" />
   <parameter name="resetOutput" value="false" />
   <parameter name="snapshot" value="true" />
   <parameter name="systemFrequency" value="50000000" />
   <parameter name="timeoutPulseOutput" value="false" />
   <parameter name="watchdogPulse" value="2" />
  </module>
- <module name="timer_1" kind="altera_avalon_timer" version="18.1" enabled="1">
+ <module name="timer_1" kind="altera_avalon_timer" version="18.1" enabled="0">
   <parameter name="alwaysRun" value="false" />
   <parameter name="counterSize" value="32" />
   <parameter name="fixedPeriod" value="false" />
-  <parameter name="period" value="10" />
-  <parameter name="periodUnits" value="MSEC" />
+  <parameter name="period" value="100" />
+  <parameter name="periodUnits" value="USEC" />
   <parameter name="resetOutput" value="false" />
   <parameter name="snapshot" value="true" />
   <parameter name="systemFrequency" value="50000000" />
@@ -1330,7 +1374,7 @@
    start="CPU_1.data_master"
    end="shared_mailbox.avmm_msg_receiver">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x04041060" />
+  <parameter name="baseAddress" value="0x04041070" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1475,7 +1519,7 @@
  </connection>
  <connection kind="avalon" version="18.1" start="CPU_1.data_master" end="pio_1.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x04041070" />
+  <parameter name="baseAddress" value="0x04041060" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1514,6 +1558,96 @@
   <parameter name="baseAddress" value="0x04020000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="cpu_1_0.mm_bridge_1_m0"
+   end="shared_PIO.avalon_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x04000020" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="cpu_1_0.mm_bridge_1_m0"
+   end="shared_mailbox.avmm_msg_receiver">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x04000000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="cpu_1_0.mm_bridge_1_m0"
+   end="sysid.control_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x04000018" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="cpu_1_0.mm_bridge_1_m0"
+   end="sdram_controller.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="cpu_1_0.mm_bridge_1_m0"
+   end="shared_mutex_PIO.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x04000010" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="cpu_0_0.outgoing_master"
+   end="shared_PIO.avalon_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x04000020" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="cpu_0_0.outgoing_master"
+   end="shared_mailbox.avmm_msg_sender">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x04000000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="cpu_0_0.outgoing_master"
+   end="sysid.control_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x04000018" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="cpu_0_0.outgoing_master"
+   end="shared_mutex_PIO.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x04000010" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="cpu_0_0.outgoing_master"
+   end="sdram_controller.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
  <connection kind="clock" version="18.1" start="clk_0.clk" end="timer_0.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="timer_1.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="PERC_0.clk" />
@@ -1533,6 +1667,8 @@
  <connection kind="clock" version="18.1" start="clk_0.clk" end="jtag_uart_1.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="pio_0.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="pio_1.clk" />
+ <connection kind="clock" version="18.1" start="clk_0.clk" end="cpu_0_0.clk" />
+ <connection kind="clock" version="18.1" start="clk_0.clk" end="cpu_1_0.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="SRAM_1.clk1" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="SRAM_0.clk1" />
  <connection
@@ -1568,13 +1704,13 @@
    version="18.1"
    start="CPU_1.irq"
    end="LED_1.interrupt_sender">
-  <parameter name="irqNumber" value="1" />
+  <parameter name="irqNumber" value="0" />
  </connection>
  <connection kind="interrupt" version="18.1" start="CPU_0.irq" end="timer_0.irq">
   <parameter name="irqNumber" value="1" />
  </connection>
  <connection kind="interrupt" version="18.1" start="CPU_1.irq" end="timer_1.irq">
-  <parameter name="irqNumber" value="2" />
+  <parameter name="irqNumber" value="1" />
  </connection>
  <connection
    kind="interrupt"
@@ -1588,7 +1724,7 @@
    version="18.1"
    start="CPU_1.irq"
    end="jtag_uart_1.irq">
-  <parameter name="irqNumber" value="3" />
+  <parameter name="irqNumber" value="2" />
  </connection>
  <connection kind="reset" version="18.1" start="clk_0.clk_reset" end="CPU_0.reset" />
  <connection
@@ -1636,6 +1772,16 @@
    end="jtag_uart_1.reset" />
  <connection kind="reset" version="18.1" start="clk_0.clk_reset" end="pio_1.reset" />
  <connection kind="reset" version="18.1" start="clk_0.clk_reset" end="pio_0.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_0.clk_reset"
+   end="cpu_0_0.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_0.clk_reset"
+   end="cpu_1_0.reset" />
  <connection
    kind="reset"
    version="18.1"
@@ -1819,5 +1965,5 @@
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />
- <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
+ <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="4" />
 </system>

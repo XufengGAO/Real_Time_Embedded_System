@@ -178,17 +178,23 @@ architecture rtl of DE1_SoC_top_level is
             sdram_controller_0_wire_dqm   : out   std_logic_vector(1 downto 0);                     -- dqm
             sdram_controller_0_wire_ras_n : out   std_logic;                                        -- ras_n
             sdram_controller_0_wire_we_n  : out   std_logic;                                        -- we_n
-            led_0_output_parport          : inout std_logic_vector(7 downto 0)  := (others => 'X'); -- parport
-            led_1_output_parport          : inout std_logic_vector(7 downto 0)  := (others => 'X'); -- parport
+            --led_0_output_parport          : inout std_logic_vector(7 downto 0)  := (others => 'X'); -- parport
+            --led_1_output_parport          : inout std_logic_vector(7 downto 0)  := (others => 'X'); -- parport
             shared_pio_output_parport     : inout std_logic_vector(7 downto 0)  := (others => 'X');  -- parport
-            pio_0_external_connection_export : out   std_logic_vector(7 downto 0);                     -- export
-            pio_1_external_connection_export : out   std_logic_vector(7 downto 0)                      -- export
+            --pio_0_external_connection_export : out   std_logic_vector(7 downto 0);                     -- export
+            --pio_1_external_connection_export : out   std_logic_vector(7 downto 0)                      -- export
+
+            cpu_0_custompio_0_parport     : inout std_logic_vector(7 downto 0)  := (others => 'X'); -- parport
+            cpu_0_led_export              : out   std_logic_vector(7 downto 0);                     -- export
+            cpu_1_custompio_0_parport     : inout std_logic_vector(7 downto 0)  := (others => 'X'); -- parport
+            cpu_1_led_export              : out   std_logic_vector(7 downto 0)                      -- export
         );
     end component system;
 
-    signal led_0: std_logic_vector(7 downto 0);
-    signal led_1: std_logic_vector(7 downto 0);
-    signal shared_pio: std_logic_vector(7 downto 0);
+    --signal led_0: std_logic_vector(7 downto 0);
+    --signal led_1: std_logic_vector(7 downto 0);
+    --signal shared_pio: std_logic_vector(7 downto 0);
+
 
 begin
         -- LED 0
@@ -221,16 +227,26 @@ begin
                 pll_0_outclk2_clk               => DRAM_CLK,                --           pll_0_outclk2.clk
 
                 -- LED 0
-                led_0_output_parport          => GPIO_0_D(7 downto 0),           --            led_0_output_parport
+                --led_0_output_parport          => GPIO_0_D(7 downto 0),           --            led_0_output_parport
                 -- LED 1
-                led_1_output_parport          => GPIO_0_D(15 downto 8),           --            led_1_output_parport
+                --led_1_output_parport          => GPIO_0_D(15 downto 8),           --            led_1_output_parport
                 -- Shared PIO
                 shared_pio_output_parport     => GPIO_1_D(7 downto 0),       --       shared_pio_output_parport
 					 
-                pio_0_external_connection_export(2 downto 0) => LEDR(2 downto 0), -- pio_0_external_connection.export
-                pio_0_external_connection_export(7 downto 3) => open, -- pio_0_external_connection.export
-                pio_1_external_connection_export(2 downto 0) => LEDR(5 downto 3),  -- pio_1_external_connection.export
-                pio_1_external_connection_export(7 downto 3) => open -- pio_0_external_connection.export
+                --pio_0_external_connection_export(2 downto 0) => LEDR(2 downto 0), -- pio_0_external_connection.export
+                --pio_0_external_connection_export(7 downto 3) => open, -- pio_0_external_connection.export
+                --pio_1_external_connection_export(2 downto 0) => LEDR(5 downto 3),  -- pio_1_external_connection.export
+                --pio_1_external_connection_export(7 downto 3) => open -- pio_0_external_connection.export
+
+                cpu_0_led_export(2 downto 0) => LEDR(2 downto 0), -- pio_0_external_connection.export
+                cpu_0_led_export(7 downto 3) => open, -- pio_0_external_connection.export
+                cpu_1_led_export(2 downto 0) => LEDR(5 downto 3),  -- pio_1_external_connection.export
+                cpu_1_led_export(7 downto 3) => open, -- pio_0_external_connection.export
+
+                cpu_0_custompio_0_parport     => GPIO_0_D(7 downto 0),     --       cpu_0_custompio_0.parport
+                cpu_1_custompio_0_parport     => GPIO_0_D(15 downto 8)     --       cpu_1_custompio_0.parport
+
+
 
         );
         

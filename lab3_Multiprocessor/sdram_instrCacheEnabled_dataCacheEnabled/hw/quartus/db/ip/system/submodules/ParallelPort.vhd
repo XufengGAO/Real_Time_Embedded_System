@@ -130,7 +130,3 @@ begin
     --irq <= iRegInt(0);
 
 end arcParport;
-
-
-
-

@@ -1,7 +1,8 @@
 
 module cpu_0 (
 	clk_clk,
-	reset_reset_n,
+	cpu_0_custompio_0_parport,
+	cpu_0_led_export,
 	outgoing_master_waitrequest,
 	outgoing_master_readdata,
 	outgoing_master_readdatavalid,
@@ -12,19 +13,20 @@ module cpu_0 (
 	outgoing_master_read,
 	outgoing_master_byteenable,
 	outgoing_master_debugaccess,
-	cpu_0_pio_export);	
+	reset_reset_n);	
 
 	input		clk_clk;
-	input		reset_reset_n;
+	inout	[7:0]	cpu_0_custompio_0_parport;
+	output	[7:0]	cpu_0_led_export;
 	input		outgoing_master_waitrequest;
 	input	[31:0]	outgoing_master_readdata;
 	input		outgoing_master_readdatavalid;
 	output	[0:0]	outgoing_master_burstcount;
 	output	[31:0]	outgoing_master_writedata;
-	output	[9:0]	outgoing_master_address;
+	output	[27:0]	outgoing_master_address;
 	output		outgoing_master_write;
 	output		outgoing_master_read;
 	output	[3:0]	outgoing_master_byteenable;
 	output		outgoing_master_debugaccess;
-	output	[7:0]	cpu_0_pio_export;
+	input		reset_reset_n;
 endmodule

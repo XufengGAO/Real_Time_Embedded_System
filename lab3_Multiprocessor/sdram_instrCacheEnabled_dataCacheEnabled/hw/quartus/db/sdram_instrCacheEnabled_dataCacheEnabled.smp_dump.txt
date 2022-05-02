@@ -34,7 +34,7 @@ m_next.000001000 0 0 1 1
 m_next.000010000 0 1 0 1 
 m_next.010000000 1 0 0 1 
 
-State Machine - |DE1_SoC_top_level|system:u0|system_CPU_0:cpu_0|system_CPU_0_cpu:cpu|system_CPU_0_cpu_nios2_oci:the_system_CPU_0_cpu_nios2_oci|system_CPU_0_cpu_debug_slave_wrapper:the_system_CPU_0_cpu_debug_slave_wrapper|system_CPU_0_cpu_debug_slave_tck:the_system_CPU_0_cpu_debug_slave_tck|DRsize
+State Machine - |DE1_SoC_top_level|system:u0|system_cpu_1_0:cpu_1_0|system_cpu_1_0_nios2_gen2_0:nios2_gen2_0|system_cpu_1_0_nios2_gen2_0_cpu:cpu|system_cpu_1_0_nios2_gen2_0_cpu_nios2_oci:the_system_cpu_1_0_nios2_gen2_0_cpu_nios2_oci|system_cpu_1_0_nios2_gen2_0_cpu_debug_slave_wrapper:the_system_cpu_1_0_nios2_gen2_0_cpu_debug_slave_wrapper|system_cpu_1_0_nios2_gen2_0_cpu_debug_slave_tck:the_system_cpu_1_0_nios2_gen2_0_cpu_debug_slave_tck|DRsize
 Name DRsize.101 DRsize.100 DRsize.011 DRsize.010 DRsize.001 DRsize.000 
 DRsize.000 0 0 0 0 0 0 
 DRsize.001 0 0 0 0 1 1 
@@ -43,7 +43,7 @@ DRsize.011 0 0 1 0 0 1
 DRsize.100 0 1 0 0 0 1 
 DRsize.101 1 0 0 0 0 1 
 
-State Machine - |DE1_SoC_top_level|system:u0|system_CPU_1:cpu_1|system_CPU_1_cpu:cpu|system_CPU_1_cpu_nios2_oci:the_system_CPU_1_cpu_nios2_oci|system_CPU_1_cpu_debug_slave_wrapper:the_system_CPU_1_cpu_debug_slave_wrapper|system_CPU_1_cpu_debug_slave_tck:the_system_CPU_1_cpu_debug_slave_tck|DRsize
+State Machine - |DE1_SoC_top_level|system:u0|system_cpu_0_0:cpu_0_0|system_cpu_0_0_nios2_gen2_0:nios2_gen2_0|system_cpu_0_0_nios2_gen2_0_cpu:cpu|system_cpu_0_0_nios2_gen2_0_cpu_nios2_oci:the_system_cpu_0_0_nios2_gen2_0_cpu_nios2_oci|system_cpu_0_0_nios2_gen2_0_cpu_debug_slave_wrapper:the_system_cpu_0_0_nios2_gen2_0_cpu_debug_slave_wrapper|system_cpu_0_0_nios2_gen2_0_cpu_debug_slave_tck:the_system_cpu_0_0_nios2_gen2_0_cpu_debug_slave_tck|DRsize
 Name DRsize.101 DRsize.100 DRsize.011 DRsize.010 DRsize.001 DRsize.000 
 DRsize.000 0 0 0 0 0 0 
 DRsize.001 0 0 0 0 1 1 

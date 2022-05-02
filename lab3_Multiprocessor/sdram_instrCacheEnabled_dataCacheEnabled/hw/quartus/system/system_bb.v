@@ -1,10 +1,10 @@
 
 module system (
 	clk_clk,
-	led_0_output_parport,
-	led_1_output_parport,
-	pio_0_external_connection_export,
-	pio_1_external_connection_export,
+	cpu_0_custompio_0_parport,
+	cpu_0_led_export,
+	cpu_1_custompio_0_parport,
+	cpu_1_led_export,
 	pll_0_outclk2_clk,
 	reset_reset_n,
 	sdram_controller_0_wire_addr,
@@ -19,10 +19,10 @@ module system (
 	shared_pio_output_parport);	
 
 	input		clk_clk;
-	inout	[7:0]	led_0_output_parport;
-	inout	[7:0]	led_1_output_parport;
-	output	[7:0]	pio_0_external_connection_export;
-	output	[7:0]	pio_1_external_connection_export;
+	inout	[7:0]	cpu_0_custompio_0_parport;
+	output	[7:0]	cpu_0_led_export;
+	inout	[7:0]	cpu_1_custompio_0_parport;
+	output	[7:0]	cpu_1_led_export;
 	output		pll_0_outclk2_clk;
 	input		reset_reset_n;
 	output	[12:0]	sdram_controller_0_wire_addr;
