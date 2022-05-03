@@ -3,7 +3,7 @@
 #
 # Author        : Xufeng GAO & Haoxin SUN
 # Revision      : 1.0
-# Creation date : 2022/04/28
+# Creation date : 2022/05/02
 #
 # ##############################################################################
 
@@ -17,8 +17,6 @@ Project structure
 ├── hw
 │   ├── hdl
 |   |   ├── IP (custom IPs)
-|   │   │   ├── custom_function.vhd     % custom instruction
-|   │   │   ├── hardware_accelerator.vhd    % hardware DMA accelerator
 |   │   │   ├── ParallelPort.vhd        % custom PIO
 |   │   │   ├── tb_ParallelPort.vhd     % testbench file
 |   │   │   ├── Counter.vhd     % custom Counter
@@ -30,13 +28,13 @@ Project structure
 │       └── pin_assignment_DE1_SoC.tcl
 ├── README
 └── sw
-    ├── CPU_0
+    ├── sub_CPU_0
     │   ├── hello_world.c (Check this if you want to know how the program works)    % software C program for one of the cores: CPU0 
     │   ├── Makefile, etc.
-    └── CPU_0.bsp
+    └── sub_CPU_0.bsp
     |   └── some bsp files
-    ├── CPU_1
+    ├── sub_CPU_1
     │   ├── hello_world.c (Check this if you want to know how the program works)    % software C program for one of the cores: CPU1 
     │   ├── Makefile, etc.
-    └── CPU_0.bsp
+    └── sub_CPU_0.bsp
         └── some bsp files

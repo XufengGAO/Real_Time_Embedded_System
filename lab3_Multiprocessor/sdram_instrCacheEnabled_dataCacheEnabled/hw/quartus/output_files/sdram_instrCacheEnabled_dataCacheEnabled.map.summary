@@ -1,13 +1,13 @@
-Analysis & Synthesis Status : Successful - Wed Apr 27 20:32:42 2022
+Analysis & Synthesis Status : Successful - Mon May 02 11:25:02 2022
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : sdram_instrCacheEnabled_dataCacheEnabled
 Top-level Entity Name : DE1_SoC_top_level
 Family : Cyclone V
 Logic utilization (in ALMs) : N/A
-Total registers : 10082
+Total registers : 10438
 Total pins : 126
 Total virtual pins : 0
-Total block memory bits : 2,186,368
+Total block memory bits : 2,105,600
 Total DSP Blocks : 6
 Total HSSI RX PCSs : 0
 Total HSSI PMA RX Deserializers : 0

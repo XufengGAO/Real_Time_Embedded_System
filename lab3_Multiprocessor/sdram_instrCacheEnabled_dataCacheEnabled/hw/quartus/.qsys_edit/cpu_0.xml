@@ -824,9 +824,9 @@
 									<root>true</root>
 									<content delegate="SplitDockStationFactory">
 										<fullscreen-action>false</fullscreen-action>
-										<node nodeId="1372710005721" orientation="HORIZONTAL" divider="0.38031496062992126">
+										<node nodeId="1372710005721" orientation="HORIZONTAL" divider="0.22248803827751196">
 											<node nodeId="1650869163938" orientation="VERTICAL" divider="0.5958702064896755">
-												<leaf id="3" nodeId="1650869163936">
+												<leaf id="2" nodeId="1650869163936">
 													<placeholders>
 														<placeholder>dock.single.IP\ Catalog</placeholder>
 													</placeholders>
@@ -972,7 +972,7 @@
 														</leaf>
 													</node>
 												</node>
-												<leaf id="2" nodeId="1372710005745">
+												<leaf id="3" nodeId="1372710005745">
 													<placeholders>
 														<placeholder>dock.single.Messages</placeholder>
 														<placeholder>dock.single.Generation\ Messages</placeholder>
@@ -1176,20 +1176,20 @@
 									</children>
 								</child>
 								<child>
-									<layout factory="predefined" placeholder="dock.single.Messages">
-										<replacement id="dockablesingle Messages"/>
+									<layout factory="predefined" placeholder="dock.single.IP\ Catalog">
+										<replacement id="dockablesingle IP Catalog"/>
 										<delegate id="delegate_ccontrol backup factory id">
-											<id>Messages</id>
+											<id>IP Catalog</id>
 											<area/>
 										</delegate>
 									</layout>
 									<children ignore="false"/>
 								</child>
 								<child>
-									<layout factory="predefined" placeholder="dock.single.IP\ Catalog">
-										<replacement id="dockablesingle IP Catalog"/>
+									<layout factory="predefined" placeholder="dock.single.Messages">
+										<replacement id="dockablesingle Messages"/>
 										<delegate id="delegate_ccontrol backup factory id">
-											<id>IP Catalog</id>
+											<id>Messages</id>
 											<area/>
 										</delegate>
 									</layout>
@@ -1281,8 +1281,8 @@
 								<property factory="SplitDockPlaceholderProperty">
 									<placeholder>dock.single.Parameters</placeholder>
 									<backup-path>
-										<node location="RIGHT" size="0.7362204724409449" id="1372710005721"/>
-										<node location="TOP" size="0.6209439528023599" id="1372710005725"/>
+										<node location="RIGHT" size="0.777511961722488" id="1372710005721"/>
+										<node location="TOP" size="0.7876106194690266" id="1372710005725"/>
 										<node location="RIGHT" size="0.6428105046578545" id="1372710005727"/>
 										<node location="TOP" size="0.6704331450094162" id="1389812802503"/>
 										<leaf id="1389812800464"/>
@@ -1606,8 +1606,8 @@
 										<property factory="SplitDockPlaceholderProperty">
 											<placeholder>dock.single.Parameters</placeholder>
 											<backup-path>
-												<node location="RIGHT" size="0.7362204724409449" id="1372710005721"/>
-												<node location="TOP" size="0.6209439528023599" id="1372710005725"/>
+												<node location="RIGHT" size="0.777511961722488" id="1372710005721"/>
+												<node location="TOP" size="0.7876106194690266" id="1372710005725"/>
 												<node location="RIGHT" size="0.6428105046578545" id="1372710005727"/>
 												<node location="TOP" size="0.6704331450094162" id="1389812802503"/>
 												<leaf id="1389812800464"/>
