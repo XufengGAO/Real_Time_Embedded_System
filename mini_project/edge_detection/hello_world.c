@@ -280,7 +280,7 @@ int write_image(void) {
 	for (int i = 0; i < 240 * 320; i++) {
 
         // first column and last column - zero padding
-        if ((i % 240 == 0) || (i % 239 == 0)) {
+        if ((i % 240 == 0) || (i % 240 == 239)) {
             offset += 4;
             IOWR_32DIRECT(HPS_0_BRIDGES_BASE, offset, 0);
         } 
