@@ -1,0 +1,137 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dD:/Course_Project/CS476/lab2/testbench
+Eedge_detection
+Z0 w1652625496
+Z1 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z2 DPx4 ieee 15 std_logic_arith 0 22 [G314=:2zXJ`VORJe1J@Z1
+Z3 DPx4 ieee 18 std_logic_unsigned 0 22 ;eZjO2D4ZDz<]0>8AL<ne1
+Z4 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z5 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+Z6 dD:/Course_Project/GitHub/Real_Time_Embedded_System/mini_project/edge_detection/test_multi
+Z7 8D:/Course_Project/GitHub/Real_Time_Embedded_System/mini_project/edge_detection/test_multi/edge_detection.vhd
+Z8 FD:/Course_Project/GitHub/Real_Time_Embedded_System/mini_project/edge_detection/test_multi/edge_detection.vhd
+l0
+L6
+VKfI?Hi898CnS@Gn1?W:C;2
+!s100 nDNSB[PiS^mCIfH<CS]XC2
+Z9 OV;C;10.5b;63
+32
+Z10 !s110 1652625502
+!i10b 1
+Z11 !s108 1652625502.000000
+Z12 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Course_Project/GitHub/Real_Time_Embedded_System/mini_project/edge_detection/test_multi/edge_detection.vhd|
+Z13 !s107 D:/Course_Project/GitHub/Real_Time_Embedded_System/mini_project/edge_detection/test_multi/edge_detection.vhd|
+!i113 1
+Z14 o-work work -2002 -explicit
+Z15 tExplicit 1 CvgOpt 0
+Abehv
+R1
+R2
+R3
+R4
+R5
+Z16 DEx4 work 14 edge_detection 0 22 KfI?Hi898CnS@Gn1?W:C;2
+l97
+L39
+VzKAODIQZR1gK]^:ceIbX@1
+!s100 kL=o^3bG3H;fB=>6LW>Cm1
+R9
+32
+R10
+!i10b 1
+R11
+R12
+R13
+!i113 1
+R14
+R15
+Etb_master
+Z17 w1652624133
+R1
+R4
+R5
+R6
+Z18 8D:/Course_Project/GitHub/Real_Time_Embedded_System/mini_project/edge_detection/test_multi/tb_master.vhd
+Z19 FD:/Course_Project/GitHub/Real_Time_Embedded_System/mini_project/edge_detection/test_multi/tb_master.vhd
+l0
+L5
+VZBjF4BVn6@g]`4im^CAJO1
+!s100 EM@H8IeA589UeQB8Md[:E1
+R9
+32
+R10
+!i10b 1
+R11
+Z20 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Course_Project/GitHub/Real_Time_Embedded_System/mini_project/edge_detection/test_multi/tb_master.vhd|
+Z21 !s107 D:/Course_Project/GitHub/Real_Time_Embedded_System/mini_project/edge_detection/test_multi/tb_master.vhd|
+!i113 1
+R14
+R15
+Asimulation
+R1
+R4
+R5
+DEx4 work 9 tb_master 0 22 ZBjF4BVn6@g]`4im^CAJO1
+l77
+L8
+V2=F4cEAmOUEERYajRWac12
+!s100 32Fh2OaIi_F@lE3IfNCDk1
+R9
+32
+R10
+!i10b 1
+R11
+R20
+R21
+!i113 1
+R14
+R15
+Etb_multiply
+Z22 w1652611677
+R1
+R4
+R5
+R6
+Z23 8D:/Course_Project/GitHub/Real_Time_Embedded_System/mini_project/edge_detection/test_multi/tb_signed.vhd
+Z24 FD:/Course_Project/GitHub/Real_Time_Embedded_System/mini_project/edge_detection/test_multi/tb_signed.vhd
+l0
+L5
+V6`NMZna[F7]nkkYIz<DJ`1
+!s100 g?zP^WY<F86UN296=C=X]2
+R9
+32
+Z25 !s110 1652611680
+!i10b 1
+Z26 !s108 1652611680.000000
+Z27 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/Course_Project/GitHub/Real_Time_Embedded_System/mini_project/edge_detection/test_multi/tb_signed.vhd|
+Z28 !s107 D:/Course_Project/GitHub/Real_Time_Embedded_System/mini_project/edge_detection/test_multi/tb_signed.vhd|
+!i113 1
+R14
+R15
+Atest
+R1
+R4
+R5
+DEx4 work 11 tb_multiply 0 22 6`NMZna[F7]nkkYIz<DJ`1
+l26
+L8
+V:X1nlm4RO`h]jOW^eg4oh0
+!s100 6b3ZF^UR0;D03QYIkB0I[2
+R9
+32
+R25
+!i10b 1
+R26
+R27
+R28
+!i113 1
+R14
+R15
