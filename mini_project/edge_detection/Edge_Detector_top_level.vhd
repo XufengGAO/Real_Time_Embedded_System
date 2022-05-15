@@ -1,7 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.ALL;
 
-entity LCD_Cotroller_top_level is
+entity Edge_Detector_top_level is
     port(
         -- top_level clock interface
         top_clock_clk       : in std_logic;
@@ -10,9 +10,7 @@ entity LCD_Cotroller_top_level is
 	    -- top_level read master
 	    top_avm_read_master_read            : out std_logic;
 	    top_avm_read_master_address         : out std_logic_vector (31 downto 0);
-	    top_avm_read_master_burstcount      : out std_logic_vector (10 downto 0);
 	    top_avm_read_master_readdata        : in std_logic_vector (31 downto 0);
-	    top_avm_read_master_readdatavalid   : in std_logic;
 	    top_avm_read_master_waitrequest     : in std_logic;
 	    top_avm_read_master_byteenable      : out std_logic_vector (3 downto 0);
 	
@@ -22,7 +20,6 @@ entity LCD_Cotroller_top_level is
 	    top_avs_csr_readdata    : out std_logic_vector (31 downto 0);
 	    top_avs_csr_write       : in std_logic;
 	    top_avs_csr_writedata   : in std_logic_vector (31 downto 0);
-	    top_avs_csr_CS          : in std_logic;
 
         -- top_level interface to LCD display
         top_conduit_RESET_n             : out   std_logic;
@@ -32,18 +29,18 @@ entity LCD_Cotroller_top_level is
         top_conduit_RDX                 : out   std_logic;
         top_conduit_Data_out            : out   std_logic_vector (15 downto 0)
     );
-end LCD_Cotroller_top_level;
+end Edge_Detector_top_level;
 
 
-architecture rtl of LCD_Cotroller_top_level is
+architecture rtl of Edge_Detector_top_level is
     -------------------------------------------------------------------------------
     -- Three custom IPs
-    -- Image_burst_reader, connect with Avalon bus, read image data from memory
+    -- edge_detection, connect with Avalon bus, read image data from memory
     -- fifo_test, synchronize data transfer between Image_burst_reader and LCD_Control
     -- LCD_Control, transfer image date to LCD display
     -------------------------------------------------------------------------------
 
-    component Image_burst_reader is
+    component edge_detection is
         port (
             -- clock interface
             csi_clock_clk       : in std_logic;
@@ -52,9 +49,7 @@ architecture rtl of LCD_Cotroller_top_level is
             -- read master
             avm_read_master_read            : out std_logic;
             avm_read_master_address         : out std_logic_vector (31 downto 0);
-            avm_read_master_burstcount      : out std_logic_vector (10 downto 0);
             avm_read_master_readdata        : in std_logic_vector (31 downto 0);
-            avm_read_master_readdatavalid   : in std_logic;
             avm_read_master_waitrequest     : in std_logic;
             avm_read_master_byteenable      : out std_logic_vector (3 downto 0);
         
@@ -65,13 +60,12 @@ architecture rtl of LCD_Cotroller_top_level is
             avs_csr_readdata                : out std_logic_vector (31 downto 0);
             avs_csr_write                   : in std_logic;
             avs_csr_writedata               : in std_logic_vector (31 downto 0);
-            avs_csr_CS                      : in std_logic;
     
     
             -- interface with fifo
             rgb_data        : out std_logic_vector (15 downto 0);
             write_fifo      : out std_logic;
-            almost_full     : in std_logic;
+            FIFO_full     : in std_logic;
     
     
             -- interface with LCD control
@@ -80,21 +74,21 @@ architecture rtl of LCD_Cotroller_top_level is
             mode_ack                : in std_logic;
             lcd_mode_select         : out std_logic_vector (2 downto 0)
         );
-    end component Image_burst_reader;
+    end component edge_detection;
 
-    component fifo_test is
+    -- should change
+    component FIFO is
         port (
             aclr		: IN STD_LOGIC ;
             clock		: IN STD_LOGIC ;
             data		: IN STD_LOGIC_VECTOR (15 DOWNTO 0);
             rdreq		: IN STD_LOGIC ;
             wrreq		: IN STD_LOGIC ;
-            almost_full	: OUT STD_LOGIC ;
             empty		: OUT STD_LOGIC ;
             full		: OUT STD_LOGIC ;
             q		    : OUT STD_LOGIC_VECTOR (15 DOWNTO 0)
         );
-    end component fifo_test;
+    end component FIFO;
 
     component LCD_Control is
         port (
@@ -130,7 +124,7 @@ architecture rtl of LCD_Cotroller_top_level is
     -- Connections between Image_burst_reader and fifo
 	signal r_rgb_data           : std_logic_vector (15 downto 0);
 	signal r_write_fifo_req     : std_logic;
-	signal r_almost_full        : std_logic;
+	signal r_full        : std_logic;    -- change
 
     -- Connections between Image_burst_reader with LCD_Control
     signal r_command_acquisition : std_logic_vector (7 downto 0);
@@ -149,7 +143,7 @@ architecture rtl of LCD_Cotroller_top_level is
 
 begin
     -- Instantiate Image_burst_reader
-    Image_burst_reader_INST : Image_burst_reader
+    edge_detection_INST : edge_detection
     port map(
 
         csi_clock_clk       => top_clock_clk,
@@ -158,9 +152,7 @@ begin
 	    -- read master
 	    avm_read_master_read            => top_avm_read_master_read,
 	    avm_read_master_address         => top_avm_read_master_address,
-	    avm_read_master_burstcount      => top_avm_read_master_burstcount,
 	    avm_read_master_readdata        => top_avm_read_master_readdata,
-	    avm_read_master_readdatavalid   => top_avm_read_master_readdatavalid,
 	    avm_read_master_waitrequest     => top_avm_read_master_waitrequest,
 	    avm_read_master_byteenable      => top_avm_read_master_byteenable,
 
@@ -171,13 +163,12 @@ begin
 	    avs_csr_readdata    => top_avs_csr_readdata,
 	    avs_csr_write       => top_avs_csr_write,
 	    avs_csr_writedata   => top_avs_csr_writedata,
-	    avs_csr_CS          => top_avs_csr_CS,
 
 
 	    -- interface with fifo
 	    rgb_data    => r_rgb_data,
 	    write_fifo  => r_write_fifo_req,
-	    almost_full => r_almost_full,
+	    FIFO_full => r_full,  -- should change
 
 
 	    -- interface with LCD control
@@ -188,16 +179,15 @@ begin
     );
 
     -- Instantiate fifo
-    fifo_test_INST : fifo_test
+    fifo_test_INST : FIFO
     port map (
         aclr		=>      fifo_aclr,  
         clock		=>      top_clock_clk,
         data		=>      r_rgb_data,
         rdreq		=>      r_read_fifo_req,
         wrreq		=>      r_write_fifo_req,
-        almost_full	=>      r_almost_full,
+        full	    =>      r_full,
         empty		=>      r_FIFO_Empty,
-        full		=>      open,
         q		    =>      r_RdData
     );
 
