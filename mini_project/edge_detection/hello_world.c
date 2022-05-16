@@ -13,18 +13,28 @@
  * "small_hello_world" template.
  *
  */
-
-#include <stdio.h>
 #include <assert.h>
 #include <inttypes.h>
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <inttypes.h>
+#include <stdint.h>
+#include <string.h>
+#include "sys/alt_cache.h"
+#include <unistd.h>
 #include "io.h"
 #include "system.h"
 
 
 #define Start_flag                0x01
+
+// custom functions
+void LCD_Init();                // function to initialize the LCD
+void LCD_RESET();               // funciton to reset the LCD
+void LCD_WR_REG(__uint32_t command_addr);       // function to write command address to LCD
+void LCD_WR_DATA(__uint32_t command_data);      // function to write command value to LCD
+int write_image(void);                          // write image from host to FPGA memory
+void display_image(void);                       // display image on LCD
 
 void LCD_Init();
 void LCD_RESET();
@@ -35,8 +45,6 @@ void LCD_WR_DATA(__uint32_t command_data);
 __uint32_t csr_Mode_select = 0x00;
 __uint32_t csr_LCD_command = 0x04;
 __uint32_t csr_Read_address = 0x08;
-__uint32_t csr_Burst_count = 0x0C;
-__uint32_t csr_Burst_total = 0x10;
 __uint32_t csr_Status = 0x14;
 __uint32_t csr_Start_flag = 0x18;
 
@@ -47,33 +55,46 @@ __uint32_t Write_Command_addr = 0b010;
 __uint32_t Write_Command_data = 0b011;
 __uint32_t Write_image_data  = 0b100;
 
+
 int main()
 {
+	// Write image
+	int flag = 0;
 
-    // Initialize LCD
-    LCD_Init();
+    // un-commment it when you wanna write image to FPGA memory
+    // here, we provide an iamge called "epfl_res.jpg"
+    // we extract all pixels to an txt file called "epfl_res.txt"
+    // in write_iamge() function, the host reads all pixels included in "epfl_res.txt" and writes them to FPGA
+	//flag = write_image();
 
-    // Write DMA reading memory address
-    IOWR_32DIRECT(LCD_CONTROLLER_0_BASE, csr_Read_address, HPS_0_BRIDGES_BASE);
+	printf("Final");
 
-    // Write Burst count value
-
-    // Write Burst total value
-
-    // Start DMA reading and LCD_Control writing
-    IOWR_32DIRECT(LCD_CONTROLLER_0_BASE, csr_Start_flag, Start_flag);
-
-    // Clear the status
-    IOWR_32DIRECT(LCD_CONTROLLER_0_BASE, csr_Status, 0);
-
-    IOWR_32DIRECT(LCD_CONTROLLER_0_BASE, csr_Mode_select, Write_image_data);
-    // Waiting for display finished
-    while(!IORD_32DIRECT(LCD_CONTROLLER_0_BASE, csr_Status)) {
-        usleep(100);
-    }
-    printf("Image displayed");
+    // un-commment it when you wanna display the image stored in FPGA memory
+	// display image
+	display_image();
 
     return 0;
+}
+void display_image(void)
+{
+	// Initialize LCD
+	LCD_Init();
+
+    // Write DMA reading memory address
+	IOWR_32DIRECT(EDGE_DETECTOR_0_BASE, csr_Read_address, SDRAM_CONTROLLER_0_BASE);
+
+    // Start DMA reading and LCD_Control writing
+	IOWR_32DIRECT(EDGE_DETECTOR_0_BASE, csr_Start_flag, Start_flag);
+
+    // Clear the status
+	IOWR_32DIRECT(EDGE_DETECTOR_0_BASE, csr_Status, 0);
+
+	IOWR_32DIRECT(EDGE_DETECTOR_0_BASE, csr_Mode_select, Write_image_data);
+    // Waiting for display finished
+	while(!IORD_32DIRECT(EDGE_DETECTOR_0_BASE, csr_Status)) {
+		usleep(100);
+	}
+	printf("Image displayed");
 }
 
 void LCD_Init()
@@ -81,7 +102,7 @@ void LCD_Init()
     LCD_RESET();        // reset LCD
 
     LCD_WR_REG(0x0011); // Exit Sleep with 120 ms delay
-    usleep(120000);
+    usleep(130000);
 
     LCD_WR_REG(0x00CF); // Power Control B
     LCD_WR_DATA(0x0000);
@@ -97,7 +118,7 @@ void LCD_Init()
     LCD_WR_REG(0x00E8); // Driver timing control A
     LCD_WR_DATA(0x0085);
     LCD_WR_DATA(0x0001);
-    LCD_WR_DATA(0x0078);
+    LCD_WR_DATA(0x0079);
 
     LCD_WR_REG(0x00CB); // Power Control A
     LCD_WR_DATA(0x0039);
@@ -113,7 +134,7 @@ void LCD_Init()
     LCD_WR_DATA(0x0000);
     LCD_WR_DATA(0x0000);
 
-    LCD_WR_REG(0x00B1); // Frame Rate Control��In Normal Mode /Full colors
+    LCD_WR_REG(0x00B1); // Frame Rate Control In Normal Mode /Full colors
     LCD_WR_DATA(0x0000);
     LCD_WR_DATA(0x001B);
 
@@ -134,8 +155,25 @@ void LCD_Init()
     LCD_WR_REG(0x00C7); // VCM control 2
     LCD_WR_DATA(0x00A2);
 
+    // Note: you can configure the direction of displaying image by youself
+    // Here we use LCD horizontal
     LCD_WR_REG(0x0036); // Memory Access Control...
-    LCD_WR_DATA(0x0008);
+    //LCD_WR_DATA(0x00A8); 	// horizontal
+    LCD_WR_DATA(0x0008);	// vertical
+
+    LCD_WR_REG(0x002A);	// vertical, Column Address Set
+    //LCD_WR_REG(0x002B); 	// horizontal, Column Address Set
+    LCD_WR_DATA(0x0000);
+    LCD_WR_DATA(0x0000);
+    LCD_WR_DATA(0x0000);
+    LCD_WR_DATA(0x00ef);
+
+    LCD_WR_REG(0x002B);	// vertical, Page Address Set
+    //LCD_WR_REG(0x002A); 	// horizontal, Page Address Set
+    LCD_WR_DATA(0x0000);
+    LCD_WR_DATA(0x0000);
+    LCD_WR_DATA(0x0001);
+    LCD_WR_DATA(0x003f);
 
     LCD_WR_REG(0x00F2);     // Enable 3G
     LCD_WR_DATA(0x0000);    // 3Gamma Function Disable
@@ -177,17 +215,7 @@ void LCD_Init()
     LCD_WR_DATA(0x0036);
     LCD_WR_DATA(0x000f);
 
-    LCD_WR_REG(0x002A); // Column Address Set
-    LCD_WR_DATA(0x0000);
-    LCD_WR_DATA(0x0000);
-    LCD_WR_DATA(0x0000);
-    LCD_WR_DATA(0x00ef);
 
-    LCD_WR_REG(0x002B); // Page Address Set
-    LCD_WR_DATA(0x0000);
-    LCD_WR_DATA(0x0000);
-    LCD_WR_DATA(0x0001);
-    LCD_WR_DATA(0x003f);
 
     LCD_WR_REG(0x003A); // COLMOD: Pixel Format Set
     LCD_WR_DATA(0x0055);
@@ -203,61 +231,64 @@ void LCD_Init()
     LCD_WR_REG(0x002c); // Memory Write Start
 }
 
+// function to write LCD command address
 void LCD_WR_REG(__uint32_t command_addr)
 {
-    IOWR_32DIRECT(LCD_CONTROLLER_0_BASE, csr_LCD_command, command_addr);
+    IOWR_32DIRECT(EDGE_DETECTOR_0_BASE, csr_LCD_command, command_addr);
     // Clear the status
-    IOWR_32DIRECT(LCD_CONTROLLER_0_BASE, csr_Status, 0);
-    IOWR_32DIRECT(LCD_CONTROLLER_0_BASE, csr_Mode_select, Write_Command_addr);
-    while(!IORD_32DIRECT(LCD_CONTROLLER_0_BASE, csr_Status)) {
+    IOWR_32DIRECT(EDGE_DETECTOR_0_BASE, csr_Status, 0);
+    IOWR_32DIRECT(EDGE_DETECTOR_0_BASE, csr_Mode_select, Write_Command_addr);
+    while(!IORD_32DIRECT(EDGE_DETECTOR_0_BASE, csr_Status)) {
         usleep(1);
     }
 }
 
+// function to write LCD command data
 void LCD_WR_DATA(__uint32_t command_data)
 {
-    IOWR_32DIRECT(LCD_CONTROLLER_0_BASE, csr_LCD_command, command_data);
+    IOWR_32DIRECT(EDGE_DETECTOR_0_BASE, csr_LCD_command, command_data);
     // Clear the status
-    IOWR_32DIRECT(LCD_CONTROLLER_0_BASE, csr_Status, 0);
-    IOWR_32DIRECT(LCD_CONTROLLER_0_BASE, csr_Mode_select, Write_Command_data);
-    while(!IORD_32DIRECT(LCD_CONTROLLER_0_BASE, csr_Status)) {
+    IOWR_32DIRECT(EDGE_DETECTOR_0_BASE, csr_Status, 0);
+    IOWR_32DIRECT(EDGE_DETECTOR_0_BASE, csr_Mode_select, Write_Command_data);
+    while(!IORD_32DIRECT(EDGE_DETECTOR_0_BASE, csr_Status)) {
         usleep(1);
     }
 }
 
+// function to reset LCD
 void LCD_RESET()
 {
     // Clear the status
-    IOWR_32DIRECT(LCD_CONTROLLER_0_BASE, csr_Status, 0);
+    IOWR_32DIRECT(EDGE_DETECTOR_0_BASE, csr_Status, 0);
     // set SET_RESET_N 1 ms
-    IOWR_32DIRECT(LCD_CONTROLLER_0_BASE, csr_Mode_select, SET_RESET_N);
-    while(!IORD_32DIRECT(LCD_CONTROLLER_0_BASE, csr_Status)) {
+    IOWR_32DIRECT(EDGE_DETECTOR_0_BASE, csr_Mode_select, SET_RESET_N);
+    while(!IORD_32DIRECT(EDGE_DETECTOR_0_BASE, csr_Status)) {
         usleep(100);
     }
-    usleep(1000);
+    usleep(1100);
 
     // Clear the status
-    IOWR_32DIRECT(LCD_CONTROLLER_0_BASE, csr_Status, 0);
+    IOWR_32DIRECT(EDGE_DETECTOR_0_BASE, csr_Status, 0);
     // clear SET_RESET_N 10 ms
-    IOWR_32DIRECT(LCD_CONTROLLER_0_BASE, csr_Mode_select, Clr_RESET_N);
-    while(!IORD_32DIRECT(LCD_CONTROLLER_0_BASE, csr_Status)) {
+    IOWR_32DIRECT(EDGE_DETECTOR_0_BASE, csr_Mode_select, Clr_RESET_N);
+    while(!IORD_32DIRECT(EDGE_DETECTOR_0_BASE, csr_Status)) {
         usleep(200);
     }
-    usleep(10000);
+    usleep(11000);
 
     // Clear the status
-    IOWR_32DIRECT(LCD_CONTROLLER_0_BASE, csr_Status, 0);
+    IOWR_32DIRECT(EDGE_DETECTOR_0_BASE, csr_Status, 0);
     // set SET_RESET_N 120 ms
-    IOWR_32DIRECT(LCD_CONTROLLER_0_BASE, csr_Mode_select, SET_RESET_N);
-    while(!IORD_32DIRECT(LCD_CONTROLLER_0_BASE, csr_Status)) {
+    IOWR_32DIRECT(EDGE_DETECTOR_0_BASE, csr_Mode_select, SET_RESET_N);
+    while(!IORD_32DIRECT(EDGE_DETECTOR_0_BASE, csr_Status)) {
         usleep(200);
     }
-    usleep(120000);
+    usleep(130000);
 }
 
 int write_image(void) {
 
-    const char* filename = "/mnt/host/TestImage.txt";
+    const char* filename = "/mnt/host/image240_320.txt";
 	int buffer[3];
 	__uint32_t writedata;
 	FILE* finput = fopen(filename, "r");
@@ -274,42 +305,52 @@ int write_image(void) {
     // first row - zero padding
     for (int i = 0; i < 242; i++) {
         offset = i * 4;
-        IOWR_32DIRECT(HPS_0_BRIDGES_BASE, offset, 0);
+        IOWR_32DIRECT(SDRAM_CONTROLLER_0_BASE, offset, 0);
+        alt_dcache_flush_all();
     }
 
 	for (int i = 0; i < 240 * 320; i++) {
 
         // first column and last column - zero padding
-        if ((i % 240 == 0) || (i % 240 == 239)) {
+        if (i % 240 == 0) {
             offset += 4;
-            IOWR_32DIRECT(HPS_0_BRIDGES_BASE, offset, 0);
-        } 
+            IOWR_32DIRECT(SDRAM_CONTROLLER_0_BASE, offset, 0);
+            alt_dcache_flush_all();
+        }
 
 		for (int j = 0; j < 3; j++) {
 			fscanf(finput, "%d", &buffer[j]);
 		}
-		__uint8_t pixel_r = buffer[0] & 248;
-		__uint8_t pixel_g = buffer[1] & 252;
-		__uint8_t pixel_b = buffer[2] & 248;
+		__uint8_t pixel_r = buffer[0];
+		__uint8_t pixel_g = buffer[1];
+		__uint8_t pixel_b = buffer[2];
 		writedata = 0;
 		writedata = writedata | (pixel_r << 16) | (pixel_g << 8) | (pixel_b);
 
         offset += 4;
 
-        IOWR_32DIRECT(HPS_0_BRIDGES_BASE, offset, writedata);
-        printf("writedata = %" PRIu32 "\n", writedata);
+        IOWR_32DIRECT(SDRAM_CONTROLLER_0_BASE, offset, writedata);
+        alt_dcache_flush_all();
+        printf("i = %d\n", i);
         // Read through address span expander
-        __uint32_t readdata = IORD_32DIRECT(HPS_0_BRIDGES_BASE, offset);
-        printf("readdata = %" PRIu32 "\n", readdata);
+        __uint32_t readdata = IORD_32DIRECT(SDRAM_CONTROLLER_0_BASE, offset);
+        //printf("readdata = %d\n", readdata);
         // Check if read data is equal to written data
         assert(writedata == readdata);
+
+        if (i % 240 == 239) {
+            offset += 4;
+            IOWR_32DIRECT(SDRAM_CONTROLLER_0_BASE, offset, 0);
+            alt_dcache_flush_all();
+        }
 
 	}
 
     // last row - zero padding
     for (int i = 0; i < 242; i++) {
         offset += 4;
-        IOWR_32DIRECT(HPS_0_BRIDGES_BASE, offset, writedata);
+        IOWR_32DIRECT(SDRAM_CONTROLLER_0_BASE, offset, 0);
+        alt_dcache_flush_all();
     }
 
 	printf("read finished\n");
