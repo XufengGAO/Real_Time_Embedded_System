@@ -78,10 +78,10 @@ signal data9 : unsigned(7 downto 0) := (others => '0');
 
 
 -- counter for read 9 pixels in NewRow
-signal PixelCounter : integer range 0 to 8 := 0;
+signal PixelCounter : integer range 0 to 17 := 0;
 
 -- counter for shift pixels
-signal ShiftCounter : integer range 0 to 5 := 0;
+signal ShiftCounter : integer range 0 to 7 := 0;
 
 begin
 
@@ -98,6 +98,7 @@ begin
 		CurrentRowCount <= 0;
 		CurrentColCount <= 0;
 		PixelCounter <= 0;
+		ShiftCounter <= 0;
 
 	elsif rising_edge (csi_clock_clk) then
 		case state is
@@ -106,24 +107,14 @@ begin
 			-- Start the machine by moving to the NewRow state and initialising address and counters.
 			when Idle =>
 				avm_read_master_read <= '0';
-				write_flag <= '0';
+				CurrentRowCount <= 0;
+				CurrentColCount <= 0;
+				
 				if csr_Start_flag(0) = '1' then
-					CurrentRowCount <= 1;
-					CurrentColCount <= 1;
 					CurrentReadAddr <= csr_Read_address;
 					PixelCounter <= 0;
-
-
-					write_flag <= '0';
-					avm_read_master_address <= CurrentReadAddr;
-	
-					-- check that fifo has enough space for at least one pixel
-					-- If so, start a NewRow.
-					if FIFO_full = '0' then
-						avm_read_master_read <= '1';				-- assert master read signal to Avalon
-						state <= NewRow;
-					end if;	
-
+					ShiftCounter <= 0;
+					state <= NewRow;
 				end if;
 
 			-- NewRow
@@ -132,75 +123,121 @@ begin
 				-- read current avalon_read_data & 32-bits RGB to 8-bits gray
 				-- dertermine pixel index
 				-- unsigned to unsigned
-				if avm_read_master_waitrequest = '0' then 
-				    avm_read_master_read <= '0';
-
-					case PixelCounter is
-						when 0 => 
+				case PixelCounter is
+					-- matrix(1,1)
+					when 0 =>
+						if FIFO_full = '0' then
+							avm_read_master_address <= CurrentReadAddr;
+							avm_read_master_read <= '1';
+							PixelCounter <= 1;
+						end if;
+					when 1 =>
+						if avm_read_master_waitrequest = '0' then
+							avm_read_master_read <= '0';
 							data1 <= shift_right((unsigned("00" & avm_read_master_readdata(23 downto 16)) + unsigned("00" & avm_read_master_readdata(15 downto 8)) + unsigned("00" & avm_read_master_readdata(7 downto 0))) * 11, 5)(7 downto 0);
-							--pixel_memory(0) <= shift_right((unsigned("00" & avm_read_master_readdata(23 downto 16)) + unsigned("00" & avm_read_master_readdata(15 downto 8)) + unsigned("00" & avm_read_master_readdata(7 downto 0))) * 11, 5)(7 downto 0);
-							
 							CurrentReadAddr <= CurrentReadAddr + 968;
-							PixelCounter <= PixelCounter + 1;
-							avm_read_master_read <= '1';
-						when 1 => 
+							PixelCounter <= 2;
+						end if;
+					-- matrix(2,1)
+					when 2 =>
+						avm_read_master_address <= CurrentReadAddr;
+						avm_read_master_read <= '1';
+						PixelCounter <= 3;
+					when 3 =>
+						if avm_read_master_waitrequest = '0' then
+							avm_read_master_read <= '0';
 							data2 <= shift_right((unsigned("00" & avm_read_master_readdata(23 downto 16)) + unsigned("00" & avm_read_master_readdata(15 downto 8)) + unsigned("00" & avm_read_master_readdata(7 downto 0))) * 11, 5)(7 downto 0);
-							--pixel_memory(1) <= shift_right((unsigned("00" & avm_read_master_readdata(23 downto 16)) + unsigned("00" & avm_read_master_readdata(15 downto 8)) + unsigned("00" & avm_read_master_readdata(7 downto 0))) * 11, 5)(7 downto 0);
-							
 							CurrentReadAddr <= CurrentReadAddr + 968;
-							PixelCounter <= PixelCounter + 1;
-							avm_read_master_read <= '1';
-						when 2 => 
+							PixelCounter <= 4;
+						end if;
+					-- matrix(3,1)
+					when 4 =>
+						avm_read_master_address <= CurrentReadAddr;
+						avm_read_master_read <= '1';
+						PixelCounter <= 5;
+					when 5 =>
+						if avm_read_master_waitrequest = '0' then
+							avm_read_master_read <= '0';
 							data3 <= shift_right((unsigned("00" & avm_read_master_readdata(23 downto 16)) + unsigned("00" & avm_read_master_readdata(15 downto 8)) + unsigned("00" & avm_read_master_readdata(7 downto 0))) * 11, 5)(7 downto 0);
-							--pixel_memory(2) <= shift_right((unsigned("00" & avm_read_master_readdata(23 downto 16)) + unsigned("00" & avm_read_master_readdata(15 downto 8)) + unsigned("00" & avm_read_master_readdata(7 downto 0))) * 11, 5)(7 downto 0);
-							
 							CurrentReadAddr <= CurrentReadAddr - 1932;
-							PixelCounter <= PixelCounter + 1;
-							avm_read_master_read <= '1';						
-						when 3 => 
+							PixelCounter <= 6;
+						end if;
+					-- matrix(1,2)
+					when 6 =>
+						avm_read_master_address <= CurrentReadAddr;
+						avm_read_master_read <= '1';
+						PixelCounter <= 7;
+					when 7 =>
+						if avm_read_master_waitrequest = '0' then
+							avm_read_master_read <= '0';
 							data4 <= shift_right((unsigned("00" & avm_read_master_readdata(23 downto 16)) + unsigned("00" & avm_read_master_readdata(15 downto 8)) + unsigned("00" & avm_read_master_readdata(7 downto 0))) * 11, 5)(7 downto 0);
-							--pixel_memory(3) <= shift_right((unsigned("00" & avm_read_master_readdata(23 downto 16)) + unsigned("00" & avm_read_master_readdata(15 downto 8)) + unsigned("00" & avm_read_master_readdata(7 downto 0))) * 11, 5)(7 downto 0);
-							
 							CurrentReadAddr <= CurrentReadAddr + 968;
-							PixelCounter <= PixelCounter + 1;
-							avm_read_master_read <= '1';
-						when 4 => 
+							PixelCounter <= 8;
+						end if;
+					-- matrix(2,2)
+					when 8 =>
+						avm_read_master_address <= CurrentReadAddr;
+						avm_read_master_read <= '1';
+						PixelCounter <= 9;
+					when 9 =>
+						if avm_read_master_waitrequest = '0' then
+							avm_read_master_read <= '0';
 							data5 <= shift_right((unsigned("00" & avm_read_master_readdata(23 downto 16)) + unsigned("00" & avm_read_master_readdata(15 downto 8)) + unsigned("00" & avm_read_master_readdata(7 downto 0))) * 11, 5)(7 downto 0);
-							--pixel_memory(4) <= shift_right((unsigned("00" & avm_read_master_readdata(23 downto 16)) + unsigned("00" & avm_read_master_readdata(15 downto 8)) + unsigned("00" & avm_read_master_readdata(7 downto 0))) * 11, 5)(7 downto 0);
-							
 							CurrentReadAddr <= CurrentReadAddr + 968;
-							PixelCounter <= PixelCounter + 1;
-							avm_read_master_read <= '1';	
-						when 5 => 
+							PixelCounter <= 10;
+						end if;
+					-- matrix(3,2)
+					when 10 =>
+						avm_read_master_address <= CurrentReadAddr;
+						avm_read_master_read <= '1';
+						PixelCounter <= 11;
+					when 11 =>
+						if avm_read_master_waitrequest = '0' then
+							avm_read_master_read <= '0';
 							data6 <= shift_right((unsigned("00" & avm_read_master_readdata(23 downto 16)) + unsigned("00" & avm_read_master_readdata(15 downto 8)) + unsigned("00" & avm_read_master_readdata(7 downto 0))) * 11, 5)(7 downto 0);
-							--pixel_memory(5) <= shift_right((unsigned("00" & avm_read_master_readdata(23 downto 16)) + unsigned("00" & avm_read_master_readdata(15 downto 8)) + unsigned("00" & avm_read_master_readdata(7 downto 0))) * 11, 5)(7 downto 0);
-							
 							CurrentReadAddr <= CurrentReadAddr - 1932;
-							PixelCounter <= PixelCounter + 1;
-							avm_read_master_read <= '1';		
-						when 6 => 
+							PixelCounter <= 12;
+						end if;
+					-- matrix(1,3)
+					when 12 =>
+						avm_read_master_address <= CurrentReadAddr;
+						avm_read_master_read <= '1';
+						PixelCounter <= 13;
+					when 13 =>
+						if avm_read_master_waitrequest = '0' then
+							avm_read_master_read <= '0';
 							data7 <= shift_right((unsigned("00" & avm_read_master_readdata(23 downto 16)) + unsigned("00" & avm_read_master_readdata(15 downto 8)) + unsigned("00" & avm_read_master_readdata(7 downto 0))) * 11, 5)(7 downto 0);
-							--pixel_memory(6) <= shift_right((unsigned("00" & avm_read_master_readdata(23 downto 16)) + unsigned("00" & avm_read_master_readdata(15 downto 8)) + unsigned("00" & avm_read_master_readdata(7 downto 0))) * 11, 5)(7 downto 0);
-							
 							CurrentReadAddr <= CurrentReadAddr + 968;
-							PixelCounter <= PixelCounter + 1;
-							avm_read_master_read <= '1';	
-						when 7 => 
+							PixelCounter <= 14;
+						end if;
+					-- matrix(2,3)
+					when 14 =>
+						avm_read_master_address <= CurrentReadAddr;
+						avm_read_master_read <= '1';
+						PixelCounter <= 15;
+					when 15 =>
+						if avm_read_master_waitrequest = '0' then
+							avm_read_master_read <= '0';
 							data8 <= shift_right((unsigned("00" & avm_read_master_readdata(23 downto 16)) + unsigned("00" & avm_read_master_readdata(15 downto 8)) + unsigned("00" & avm_read_master_readdata(7 downto 0))) * 11, 5)(7 downto 0);
-							--pixel_memory(7) <= shift_right((unsigned("00" & avm_read_master_readdata(23 downto 16)) + unsigned("00" & avm_read_master_readdata(15 downto 8)) + unsigned("00" & avm_read_master_readdata(7 downto 0))) * 11, 5)(7 downto 0);
-							
 							CurrentReadAddr <= CurrentReadAddr + 968;
-							PixelCounter <= PixelCounter + 1;
-							avm_read_master_read <= '1';
-						when 8 => 
+							PixelCounter <= 16;
+						end if;
+					-- matrix(3,3)
+					when 16 =>
+						avm_read_master_address <= CurrentReadAddr;
+						avm_read_master_read <= '1';
+						PixelCounter <= 17;
+					when 17 =>
+						if avm_read_master_waitrequest = '0' then
+							avm_read_master_read <= '0';
 							data9 <= shift_right((unsigned("00" & avm_read_master_readdata(23 downto 16)) + unsigned("00" & avm_read_master_readdata(15 downto 8)) + unsigned("00" & avm_read_master_readdata(7 downto 0))) * 11, 5)(7 downto 0);
-							--pixel_memory(8) <= shift_right((unsigned("00" & avm_read_master_readdata(23 downto 16)) + unsigned("00" & avm_read_master_readdata(15 downto 8)) + unsigned("00" & avm_read_master_readdata(7 downto 0))) * 11, 5)(7 downto 0);
-							
 							CurrentReadAddr <= CurrentReadAddr - 1932;
 							PixelCounter <= 0;
 							state <= Compute;
-					end case;
-				end if;
+						end if;
+
+				end case;
+			
 
 			when Compute =>
 
@@ -231,7 +268,6 @@ begin
 				rgb_data <= rgb_register;
 				write_fifo <= '1';		-- write request to FIFO
 				-- counter increment
-				 
 				CurrentColCount <= CurrentColCount + 1;
 				state <= Branch;
 
@@ -240,18 +276,17 @@ begin
 				if CurrentColCount = 240 and CurrentRowCount = 319 then
 					state <= Done;
 				elsif CurrentColCount = 240 then
-					if FIFO_full = '0' then
-						CurrentRowCount <= CurrentRowCount + 1;
-						CurrentColCount <= 0;
-						state <= NewRow;
-						avm_read_master_read <= '1';
-						-- address update or not
-					end if;
+					CurrentRowCount <= CurrentRowCount + 1;
+					CurrentColCount <= 0;
+					PixelCounter <= 0;
+					state <= NewRow;
 				else
-					if FIFO_full = '0' then
-						state <= NewCol;
-						ShiftCounter <= 0;
-					end if;
+					--if FIFO_full = '0' then
+					--	state <= NewCol;
+					--	ShiftCounter <= 0;
+					--end if;
+					state <= NewCol;
+					ShiftCounter <= 0;
 				end if;
 
 			when NewCol =>
@@ -260,38 +295,50 @@ begin
 						data1 <= data4;
 						data2 <= data5;
 						data3 <= data6;
-						ShiftCounter <= ShiftCounter + 1;
+						ShiftCounter <= 1;
 					when 1 => 
 						data4 <= data7;
 						data5 <= data8;
 						data6 <= data9;
-						ShiftCounter <= ShiftCounter + 1;
-						avm_read_master_read <= '1';
-						PixelCounter <= 0;
-					when 2 =>
-						if avm_read_master_waitrequest = '0' then 
-				    		avm_read_master_read <= '0';
+						ShiftCounter <= 2;
 
-							case PixelCounter is
-								when 0 => 
-									data7 <= shift_right((unsigned("00" & avm_read_master_readdata(23 downto 16)) + unsigned("00" & avm_read_master_readdata(15 downto 8)) + unsigned("00" & avm_read_master_readdata(7 downto 0))) * 11, 5)(7 downto 0);
-									CurrentReadAddr <= CurrentReadAddr + 968;
-									PixelCounter <= PixelCounter + 1;
-									avm_read_master_read <= '1';
-								when 1 => 
-									data8 <= shift_right((unsigned("00" & avm_read_master_readdata(23 downto 16)) + unsigned("00" & avm_read_master_readdata(15 downto 8)) + unsigned("00" & avm_read_master_readdata(7 downto 0))) * 11, 5)(7 downto 0);
-									CurrentReadAddr <= CurrentReadAddr + 968;
-									PixelCounter <= PixelCounter + 1;
-									avm_read_master_read <= '1';
-								when 2 => 
-									data9 <= shift_right((unsigned("00" & avm_read_master_readdata(23 downto 16)) + unsigned("00" & avm_read_master_readdata(15 downto 8)) + unsigned("00" & avm_read_master_readdata(7 downto 0))) * 11, 5)(7 downto 0);
-									CurrentReadAddr <= CurrentReadAddr - 1932;
-									PixelCounter <= 0;
-									state <= Compute;	
-								when others =>				
-							end case;
+					when 2 =>
+						if FIFO_full = '0' then
+							avm_read_master_address <= CurrentReadAddr;
+							avm_read_master_read <= '1';
+							ShiftCounter <= 3;
 						end if;
-					when others =>
+					when 3 =>
+						if avm_read_master_waitrequest = '0' then
+							avm_read_master_read <= '0';
+							data7 <= shift_right((unsigned("00" & avm_read_master_readdata(23 downto 16)) + unsigned("00" & avm_read_master_readdata(15 downto 8)) + unsigned("00" & avm_read_master_readdata(7 downto 0))) * 11, 5)(7 downto 0);
+							CurrentReadAddr <= CurrentReadAddr + 968;
+							ShiftCounter <= 4;
+						end if;
+					when 4 =>
+						avm_read_master_address <= CurrentReadAddr;
+						avm_read_master_read <= '1';
+						ShiftCounter <= 5;
+					when 5 =>
+						if avm_read_master_waitrequest = '0' then
+							avm_read_master_read <= '0';
+							data8 <= shift_right((unsigned("00" & avm_read_master_readdata(23 downto 16)) + unsigned("00" & avm_read_master_readdata(15 downto 8)) + unsigned("00" & avm_read_master_readdata(7 downto 0))) * 11, 5)(7 downto 0);
+							CurrentReadAddr <= CurrentReadAddr + 968;
+							ShiftCounter <= 6;
+						end if;
+					when 6 =>
+						avm_read_master_address <= CurrentReadAddr;
+						avm_read_master_read <= '1';
+						ShiftCounter <= 7;
+					when 7 =>
+						if avm_read_master_waitrequest = '0' then
+							avm_read_master_read <= '0';
+							data9 <= shift_right((unsigned("00" & avm_read_master_readdata(23 downto 16)) + unsigned("00" & avm_read_master_readdata(15 downto 8)) + unsigned("00" & avm_read_master_readdata(7 downto 0))) * 11, 5)(7 downto 0);
+							CurrentReadAddr <= CurrentReadAddr - 1932;
+							ShiftCounter <= 0;
+							state <= Compute;
+						end if;
+
 				end case;
 
 			when Done =>
