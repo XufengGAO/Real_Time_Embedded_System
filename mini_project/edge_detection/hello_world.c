@@ -356,3 +356,58 @@ int write_image(void) {
 	printf("read finished\n");
 	return EXIT_SUCCESS;
 }
+
+
+void pure_software() {
+    __uint32_t currentAddr = 0; // address to access pixel values
+
+    int pixelValue[9] = {0,0,0,0,0,0,0,0,0};
+    __uint32_t rawPixelVal = 0;
+    int gx = 0; // gradient x
+    int gy = 0; // gradient y
+    int g_sum = 0; // abs(gx) + abs(gy)
+
+    for (int i = 0; i < 320; i++) {
+        // calculate for a row
+        // first read 9 pixels
+        for (int pixel_count = 0; pixel_count < 9; pixel_count++) {
+            rawPixelVal = IORD_32DIRECT(HPS_0_BRIDGES_BASE, currentAddr);
+            pixelValue[pixel_count] = ((rawPixelVal & 255) + ((rawPixelVal & 65280) >> 8) + ((rawPixelVal & 16711680) >> 16))/3;
+            if (pixel_count % 3 == 2) {
+                currentAddr -= 1932;
+            } else {
+                currentAddr += 968;
+            }
+        }
+
+        // 1-239 pixel in one row
+        for (int j = 0; j < 239; j++) {
+            // calculate 2d convolution
+            gx = -pixelValue[0] - 2 * pixelValue[1] - pixelValue[2] + pixelValue[6] + 2 * pixelValue[7] + pixelValue[8];
+            gy = -pixelValue[0] - 2 * pixelValue[3] - pixelValue[6] + pixelValue[2] + 2 * pixelValue[5] + pixelValue[8];
+            g_sum = abs(gx) + abs(gy);
+            // TODO: write g_sum into a .txt file
+
+            // shift and read new pixels
+            for (int jj = 0; jj < 3; jj++) {
+                pixelValue[jj] = pixelValue[3+jj];
+                pixelValue[3+jj] = pixelValue[6+jj];
+                rawPixelVal = IORD_32DIRECT(HPS_0_BRIDGES_BASE, currentAddr);
+                pixelValue[6+jj] = ((rawPixelVal & 255) + ((rawPixelVal & 65280) >> 8) + ((rawPixelVal & 16711680) >> 16))/3;
+                if (jj == 2) {
+                    currentAddr -= 1932;
+                } else {
+                    currentAddr += 968;
+                }
+            }
+        }
+
+        // last pixel in one row
+        gx = -pixelValue[0] - 2 * pixelValue[1] - pixelValue[2] + pixelValue[6] + 2 * pixelValue[7] + pixelValue[8];
+        gy = -pixelValue[0] - 2 * pixelValue[3] - pixelValue[6] + pixelValue[2] + 2 * pixelValue[5] + pixelValue[8];
+        g_sum = abs(gx) + abs(gy);
+        // TODO: write g_sum into a .txt file
+
+        
+    }
+}
