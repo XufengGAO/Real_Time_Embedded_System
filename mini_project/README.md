@@ -1,8 +1,9 @@
-# Edge Detection via Sobel algorithm
+# Edge Detection via Sobel Algorithm
 
 ### Description
 This project implements edge detection based on the Sobel operator. It reads an image from memory, does edge detection, and then displays the result binary image on a LCD screen.
 
+Details in our design are demonstrated in our report.
 
 ### Project Structure
 
@@ -21,3 +22,5 @@ This project implements edge detection based on the Sobel operator. It reads an 
   - sobel_op.ipynb  % python notebook implementing sobel operators
 - README.md
 ```
+
+### Reference
