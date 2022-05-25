@@ -18,6 +18,7 @@ Details in our design are demonstrated in our report.
   - test_image  % test images for our demo
     - original  % original images in .jpg/.ppm/.txt format
     - results   % result binary images after edge detection
+      - Cpp     % images computed in Cpp, used as comparison
       - LCD     % photos of displayed image on the LCD
       - python  % images computed in python notebook, used as comparison
   - test_multi  % test bench for sub-operations in the design
