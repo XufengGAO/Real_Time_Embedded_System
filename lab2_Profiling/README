@@ -34,3 +34,4 @@ Project structure
     │   ├── Makefile, etc.
     └── Profile.bsp
         └── some bsp files
+└── report
