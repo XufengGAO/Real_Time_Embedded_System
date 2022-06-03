@@ -29,9 +29,9 @@ Project structure
 │       └── pin_assignment_DE1_SoC.tcl
 ├── README
 └── sw
-    ├── Profile
-    │   ├── hello_world.c (Check this if you want to know how the program works)    % software C program
-    │   ├── Makefile, etc.
-    └── Profile.bsp
-        └── some bsp files
+│   ├── Profile
+│   │   ├── hello_world.c (Check this if you want to know how the program works)    % software C program
+│   │   ├── Makefile, etc.
+│   └── Profile.bsp
+│       └── some bsp files
 └── report
