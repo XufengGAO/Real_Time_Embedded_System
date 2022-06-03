@@ -9,10 +9,11 @@ In this repo, the measures of response time to interruptions are studied and tes
 - Reports are written to illustrate our results.
 
 ### Members
-- [Haoxin SUN](https://github.com/HaoxinSEU)
-- [Xufeng GAO](https://github.com/XufengGAO)
+- [Haoxin Sun](https://github.com/HaoxinSEU)
+- [Xufeng Gao](https://github.com/XufengGAO)
 
 ### Main works in this repo
+- Lab 1: The goal of this laboratory is to get in-depth knowledge of the various timings involved in interrupt handling. 
 - Lab 2: Specific operations by pure C program, custom instructions, and a hardware DMA accelerator; Profiling by software and hardware tools.
 - Lab 3: Multiprocessor system design; usage of hardware Mailbox and Mutex IP cores; hardware counter without locks design.
 - Mini project: Use a hardware accelerator to do image edge detection, based on the Sobel operator (2D convolution).
