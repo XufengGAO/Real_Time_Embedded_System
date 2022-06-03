@@ -8,7 +8,15 @@ Details in our design are demonstrated in our report.
 ### Project Structure
 
 ```
-- edge detection
+- hw
+  - hdl % Soc Top-level
+  - IP % custom IP designs
+  - quartus % other hardware design files
+- sw
+  - Mini_3
+    - main % c file to test the whole system
+   - Mini_3_bsp % bsp configuration
+- others
   - Cplusplus
     - main.cpp  % cpp implementing sobel operators
   - test_image  % test images for our demo
@@ -19,7 +27,6 @@ Details in our design are demonstrated in our report.
       - python  % images computed in python notebook, used as comparison
   - Python
     - sobel_op.ipynb  % python notebook implementing sobel operators
-  - VHDL        % Quartus project
 - README.md
 - report.pdf
 ```
