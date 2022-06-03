@@ -1,0 +1,61 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "GPIO_0_D[0]",
+					"strict" : false
+				},
+				{
+					"name" : "GPIO_0_D[1]",
+					"strict" : false
+				},
+				{
+					"name" : "GPIO_0_D[2]",
+					"strict" : false
+				},
+				{
+					"name" : "GPIO_0_D[3]",
+					"strict" : false
+				},
+				{
+					"name" : "GPIO_0_D[4]",
+					"strict" : false
+				},
+				{
+					"name" : "GPIO_0_D[5]",
+					"strict" : false
+				},
+				{
+					"name" : "GPIO_0_D[6]",
+					"strict" : false
+				},
+				{
+					"name" : "GPIO_0_D[7]",
+					"strict" : false
+				},
+				{
+					"name" : "CLOCK_50",
+					"strict" : false
+				},
+				{
+					"name" : "KEY_N[2]",
+					"strict" : false
+				},
+				{
+					"name" : "KEY_N[3]",
+					"strict" : false
+				},
+				{
+					"name" : "KEY_N[0]",
+					"strict" : false
+				},
+				{
+					"name" : "KEY_N[1]",
+					"strict" : false
+				}
+			]
+		}
+	]
+}
