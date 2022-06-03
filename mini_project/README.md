@@ -15,7 +15,7 @@ Details in our design are demonstrated in our report.
 - sw
   - Mini_3
     - main % c file to test the whole system
-   - Mini_3_bsp % bsp configuration
+  - Mini_3_bsp % bsp configurations
 - others
   - Cplusplus
     - main.cpp  % cpp implementing sobel operators
